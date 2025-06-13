@@ -1,0 +1,238 @@
+.user-container {
+  font-size: 10px;
+  background-color: #f5f5f5;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  min-width: 100px;
+  min-height: 70px;
+  gap: 0.5px;
+  padding: 10px;
+  border: 1px solid #d1d1d1;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15);
+  border-radius: 0 0 5px 5px;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 5px;
+  gap: 5px;
+}
+
+.Device-container {
+  font-size: 10px;
+  background-color: #f5f5f5;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 10px;
+  border: 1px solid #d1d1d1;
+  min-width: 100px;
+  min-height: 90px;
+  gap: 0.5px;
+  padding: 10px;
+  border: 1px solid #d1d1d1;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15);
+  border-radius: 0 0 5px 5px;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 5px;
+  gap: 5px;
+}
+
+.sensors-container {
+  font-size: 10px;
+  background-color: #f5f5f5;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  min-width: 100px;
+  min-height: 5px;
+  gap: 0.5px;
+  padding: 10px;
+  border: 1px solid #d1d1d1;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15);
+  border-radius: 0 0 5px 5px;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 5px;
+  gap: 5px;
+}
+
+.storage {
+  font-size: 10px;
+  background-color: #f5f5f5;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  min-width: 100px;
+  min-height: 50px;
+  gap: 0.5px;
+  padding: 10px;
+  border: 1px solid #d1d1d1;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15);
+  border-radius: 0 0 5px 5px;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+.Privacy-container {
+  font-size: 10px;
+  background-color: #f5f5f5;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  min-width: 100px;
+  min-height: 50px;
+  gap: 0.5px;
+  padding: 10px;
+  border: 1px solid #d1d1d1;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15);
+  border-radius: 0 0 5px 5px;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+.container-icons {
+  font-size: 11px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  /*cursor: grab;*/
+  position: relative;
+  gap: 2px;
+}
+/* width: 35px;
+  height: 35px;*/
+.icon-img {
+  width: 32px;
+  height: 32px;
+  align-items: center;
+}
+
+.delete-btn {
+  display: none;
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 0;
+  line-height: 1;
+  color: red;
+  z-index: 10;
+}
+
+.delete-btn:hover {
+  color: darkred;
+}
+
+.dropped .delete-btn {
+  display: block;
+}
+.plus-btn {
+  display: none;
+  position: absolute;
+  top: -8px;
+  right: 45px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 0;
+  line-height: 1;
+  color: red;
+  z-index: 10;
+}
+.smart-watch-plus-btn {
+  position: absolute;
+  right: 60px;
+}
+#Vacuum.dropped {
+  margin: auto 5px !important;
+  background-color: "red";
+}
+.icon-img-style {
+  display: "none";
+  position: absolute;
+  left: 40px;
+}
+.vacume-plus-btn {
+  display: "none";
+  position: absolute;
+  right: 70px;
+}
+.dropped .vacume-plus-btn {
+  display: block;
+}
+
+.dropped .icon-img-style {
+  display: block;
+}
+
+.plus-btn:hover {
+  color: darkred;
+}
+
+.dropped .plus-btn {
+  display: block;
+}
+
+.set-vacume-margin {
+  display: none;
+  margin: auto 5px;
+}
+.dropped .set-vacume-margin {
+  display: block;
+}
+
+.btns-cont {
+  top: 0;
+  left: 0;
+  position: relative;
+  display: block;
+  padding: 8px;
+  border-bottom: 1px solid #d1d1d1;
+
+  /* button{
+    margin: 5px;
+    padding: 4px;
+    cursor: pointer;
+  } */
+}
+
+.list-default {
+  margin: 2px;
+  width: 60px;
+}
+
+.gps-cross {
+  left: 45px;
+}
+
+.btns-cont {
+  top: 0;
+  left: 0;
+  position: relative;
+  display: block;
+  padding: 10px;
+  border-bottom: 1px solid #d1d1d1;
+  button {
+    margin: 5px;
+    padding: 2px;
+    cursor: pointer;
+  }
+}
+.centered-icons-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+}

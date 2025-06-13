@@ -1,0 +1,16 @@
+{
+  "GDPR_Articles": {
+    "Art_5": {
+      "id": 1,
+      "title": "GDPR Principles relating to processing of personal data",
+      "link": "https://gdpr-info.eu/art-5-gdpr/",
+      "Advice": "Collect only the data necessary for your goals to keep it relevant and limited."
+    },
+    "Art_13": {
+      "id": 2,
+      "title": "Information to be provided where personal data are collected from the data subject",
+      "link": "https://gdpr-info.eu/art-13-gdpr/",
+      "Advice": "Users must be informed when and who and how their data is being collected."
+    }
+  }
+}

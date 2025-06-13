@@ -1,0 +1,41 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Main wheel -->
+  <circle cx="50" cy="50" r="30" fill="#3D85C6" stroke="#2C5F8C" stroke-width="2"/>
+  
+  <!-- Inner rim -->
+  <circle cx="50" cy="50" r="20" fill="#5B9BD5" stroke="#2C5F8C" stroke-width="1.5"/>
+  
+  <!-- Center hub -->
+  <circle cx="50" cy="50" r="10" fill="#9CC3E5" stroke="#2C5F8C" stroke-width="1"/>
+  <circle cx="50" cy="50" r="5" fill="#2C5F8C"/>
+  
+  <!-- Tire treads - simplified for icon -->
+  <g stroke="#2C5F8C" stroke-width="2">
+    <!-- Top -->
+    <line x1="44" y1="21" x2="56" y2="21" />
+    <!-- Right -->
+    <line x1="79" y1="44" x2="79" y2="56" />
+    <!-- Bottom -->
+    <line x1="44" y1="79" x2="56" y2="79" />
+    <!-- Left -->
+    <line x1="21" y1="44" x2="21" y2="56" />
+  </g>
+  
+  <!-- Decorative spokes -->
+  <g stroke="#2C5F8C" stroke-width="2.5">
+    <line x1="50" y1="30" x2="50" y2="40" />
+    <line x1="50" y1="60" x2="50" y2="70" />
+    <line x1="30" y1="50" x2="40" y2="50" />
+    <line x1="60" y1="50" x2="70" y2="50" />
+    <line x1="36" y1="36" x2="43" y2="43" />
+    <line x1="57" y1="57" x2="64" y2="64" />
+    <line x1="36" y1="64" x2="43" y2="57" />
+    <line x1="57" y1="43" x2="64" y2="36" />
+  </g>
+  
+  <!-- Motor element (simplified for icon) -->
+  <rect x="85" y="35" width="10" height="30" rx="2" ry="2" fill="#666666" stroke="#444444" stroke-width="1.5"/>
+  
+  <!-- Axle connecting wheel to motor -->
+  <rect x="50" y="48" width="35" height="4" fill="#888888" stroke="#666666" stroke-width="1"/>
+</svg>

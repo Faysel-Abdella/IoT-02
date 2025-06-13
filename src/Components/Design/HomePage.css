@@ -1,0 +1,565 @@
+.homepage-container {
+  position: relative;
+}
+/*Login name*/
+.username-display {
+  position: fixed;
+  top: 20px;
+  right: 0;
+  margin: 10px;
+  font-size: 13px;
+  z-index: 1000;
+  font-weight: bold;
+}
+
+body {
+  * {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+    box-sizing: border-box;
+  }
+
+  .container {
+    flex-direction: row-reverse;
+  }
+
+  #left-parent {
+    font-size: 10px;
+    width: 1000px;
+    min-height: 750px;
+    background-color: #e4ebf1;
+    border-radius: 10px;
+    margin-top: -10px;
+    padding-top: 0;
+  }
+
+  #feedback {
+    width: 1000px;
+    min-height: 100px;
+    margin: 10px;
+    /*background-color: #6b6565;  Just for visualization, adjust as needed */
+    border: 2px dashed #000;
+  }
+
+  .left-wrapper {
+    width: 1000px;
+    min-height: 800px;
+    flex-direction: column; /* Stack children vertically */
+    justify-content: flex-start;
+  }
+
+  /*  table in feedback*/
+  .container {
+    display: flex;
+    justify-content: space-around;
+    /*padding: 20px;*/
+  }
+  .column {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin: 10px;
+  }
+  /*
+.risk-indicator {
+    height: 30px;
+    width: 30px;
+    display: inline-block;
+    border: 1px solid #000;
+}
+
+.low-risk {
+    background-color: green;
+}
+.medium-risk {
+    background-color: rgb(230, 176, 14);
+}
+.high-risk {
+    background-color: red;
+}
+/*
+/*left*/
+  #right {
+    /* width: 250px;*/
+    width: 260px;
+    margin: 0.5px;
+    text-align: center;
+    background-color: srgb(230, 227, 227);
+    font-weight: bold;
+    padding: 1px;
+  }
+
+  #left-parent,
+  #right {
+    max-height: 90dvh;
+  }
+
+  .contt {
+    margin-bottom: 5px;
+  }
+
+  h1 {
+    margin-bottom: 100px;
+  }
+  /* 
+.list-container {
+overflow-y: auto; 
+max-height: 150px; 
+}*/
+
+  /*.list {
+display: flex;
+justify-content: space-around;
+margin-bottom: 10px;
+position: relative;
+*/
+
+  #left-parent {
+    border: 1px solid #ccc;
+    background-color: #e4ebf1;
+    margin: 10px;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+
+  .list {
+    cursor: move;
+  }
+  .list:hover {
+    background-color: #e4ebfa;
+  }
+
+  .del-btn {
+    color: 222;
+    padding: 10px;
+  }
+
+  #lineColor {
+    padding: 3px;
+  }
+
+  .del-btn:hover {
+    background-color: #ccc;
+  }
+
+  #left {
+    /* padding: 30px 0;
+  text-align: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 150px);
+  gap: 30px;
+  width: 100%;
+  overflow-x: auto;
+  box-sizing: border-box;
+  min-height: 600px;
+  z-index: -1; */
+    /* In HomePage.css */
+
+    position: relative; /* This is crucial for absolute positioning of children */
+    width: 100%;
+    min-height: 650px;
+    flex: auto;
+
+    .list {
+      height: auto;
+      z-index: 2;
+      padding: 10px;
+      box-shadow: 1px 1px 1px 1px #ccc;
+      width: auto;
+      height: auto;
+      text-align: center;
+      vertical-align: middle;
+      margin: auto 20px;
+      position: relative;
+      box-sizing: border-box;
+    }
+    .list:hover {
+      background-color: #e4ebfa;
+    }
+
+    /** move even numbered grid items up */
+    .list:nth-child(even) {
+      margin-top: 10px;
+    }
+  }
+
+  .sparql-results {
+    display: none; /* Hidden by default, shown when there are results */
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+  }
+}
+
+h2 {
+  background-color: #e4ebf1; /* Light blue-gray to match the container style */
+  color: #333; /* Darker text for better contrast */
+  font-family: "Arial", sans-serif; /* Clean, readable font */
+  font-size: 16px; /* Appropriate size for headers */
+  padding: 5px 10px; /* Padding to maintain button-like aesthetics */
+  border-radius: 5px 5px 0 0; /* Rounded top corners, flat bottom to align with the container */
+  text-align: center;
+  display: block; /* Block display to fit the container width */
+  margin: 0; /* Remove margin to align flush with containers */
+  cursor: pointer; /* Interactive cursor */
+  box-shadow: none; /* Remove shadow to integrate seamlessly with the container */
+  width: 100%; /* Ensure it spans the full width of the container */
+}
+
+/****Pop***/
+.gdpr-popup {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 250px;
+  height: auto; /* Adjusted for dynamic content height */
+  max-height: 150px; /* Maximum height before scrolling */
+  padding: 10px;
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  overflow-y: auto; /* Enables vertical scrolling if content exceeds height */
+}
+
+.gdpr-popup h3 {
+  margin-top: 0;
+  color: #333;
+  font-size: 14px;
+}
+
+.gdpr-popup p {
+  font-size: 12px;
+  color: #666;
+  margin: 8px 0;
+}
+
+.gdpr-popup a {
+  font-size: 12px;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.gdpr-popup a:hover {
+  text-decoration: underline;
+}
+
+.gdpr-popup button {
+  margin: 10px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 3px;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+.gdpr-popup button:hover {
+  background-color: #c5372b;
+}
+.overlayCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none; /* Allows clicks to pass through */
+}
+
+.star-rating {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 8px; /* Smaller stars */
+  /*color: yellow; /* Star color */
+}
+
+.star-rating button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0 2px;
+}
+
+div:where(.swal2-container) h2:where(.swal2-title) {
+  padding: 10px !important;
+}
+
+div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
+  background-color: #007bff !important;
+  color: white !important;
+}
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.custom-swal-title {
+  font-size: 20px;
+  color: #2c3e50;
+}
+
+.custom-swal-content {
+  font-size: 16px;
+  color: #34495e;
+  size: 6 px;
+}
+
+.custom-swal-confirm-button {
+  background-color: #1abc9c;
+  color: white;
+  border: none;
+}
+
+.custom-swal-cancel-button {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+}
+
+.custom-swal-icon {
+  color: #f39c12;
+}
+/*Feedback table*/
+.feedback-table {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+}
+
+.feedback-cell {
+  border: 1px solid #000;
+  padding: 20px;
+  width: 25%;
+  min-height: 150px;
+}
+
+.feedback-cell h3 {
+  margin-bottom: 10px;
+}
+
+.feedback-cell p {
+  margin: 0;
+}
+
+/**/
+
+input[type="radio"] {
+  display: none;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.star-container {
+  display: flex;
+  align-items: left;
+}
+
+.star {
+  cursor: pointer;
+  font-size: 1rem;
+  margin: 1px;
+  color: #ffc1079c;
+}
+
+.star:hover,
+.star:hover ~ .star {
+  color: #ffc1079c;
+}
+
+.homepage-container {
+  position: relative;
+  font-family: "Arial", sans-serif; /* Changed font for a fresher look */
+}
+
+/* Styling for the toolbar container to use flexbox */
+.toolbar-container {
+  display: right;
+  align-items: right;
+  /* margin: 12px 0; /* Adjust margin as needed */
+}
+
+/* Styling for the interaction log button */
+.interaction-log-btn {
+  background-color: #e5ebf0;
+  border: none;
+  color: rgb(17, 17, 17);
+  /* padding: 15px 25px; */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* margin-top: 10px; */
+  width: 200px;
+  height: 60px;
+  justify-content: center;
+  margin-left: 9px;
+}
+
+/* Icon inside the button, ensuring proper spacing and size */
+.interaction-log-btn i {
+  margin-right: 8px;
+  font-size: 1.2em; /* Slightly larger icon */
+}
+
+/* Main container for the interaction log when visible */
+.interaction-log {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 12px;
+  margin: 12px 0;
+  background-color: #ffffff; /* Brighter background for the log */
+  max-height: 300px; /* Increased viewable area */
+  overflow-y: auto;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Consistency with button shadow */
+  width: 100%; /* Full width */
+  position: fixed; /* Position absolutely to overlay without affecting layout */
+  top: 50px; /* Adjust the position as needed */
+  right: 10px; /* Adjust the position as needed */
+  z-index: 1000; /* Ensure it is above other elements */
+}
+
+/* Flex container for the header and the button */
+.interaction-log-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Style for headings within the interaction log */
+.interaction-log h3 {
+  margin-top: 0;
+  color: #333; /* Darker color for better readability */
+}
+
+/* Styling for the list within the log */
+.interaction-log ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+/* Individual list items within the log */
+.interaction-log li {
+  margin-bottom: 8px;
+  font-size: 0.9em;
+  color: #555;
+}
+
+/*Interaction log */
+.interaction-log-img {
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(245, 243, 243, 0.1);
+}
+.temp-margin {
+  position: absolute;
+  right: 60px !important;
+}
+.temp-image {
+  position: relative;
+  display: none;
+  left: 45px;
+}
+.dropped .temp-image {
+  display: block;
+}
+
+/*End  of the Interaction log */
+
+/* .plus-icon{
+  position: relative;
+  left: 25px;
+  top: 0px;
+  color: blue;
+} */
+
+/*Sidebar*/
+/* make header click-through and arrow on the right */
+/* Improved section header with integrated arrow */
+/* Bold section headers with table-like styling */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 0.2rem;
+  background-color: #e4ebf1;
+  padding: 8px 15px;
+  border-radius: 4px 4px 0 0;
+  border: 1px solid #ddd;
+  border-bottom: none;
+  transition: background-color 0.2s ease;
+}
+
+.section-header h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  text-align: left;
+  width: auto;
+  display: inline-block;
+  font-family: "Arial", sans-serif;
+}
+
+.collapse-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #090909;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Rotate arrow when section is collapsed */
+.section-header .collapse-btn svg {
+  transition: transform 0.2s ease;
+}
+
+/* Position and style the arrows */
+.section-header:not(.collapsed) .collapse-btn svg {
+  transform: rotate(0deg);
+}
+
+.section-header.collapsed .collapse-btn svg {
+  transform: rotate(-90deg);
+}
+
+/* Container styling to match table appearance */
+.user-container {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+/* Hide container when collapsed */
+.user-container.collapsed {
+  display: none;
+  height: 0;
+  overflow: hidden;
+}

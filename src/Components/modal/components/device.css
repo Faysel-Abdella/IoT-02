@@ -1,0 +1,123 @@
+.form-container{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    /* align-items: center; */
+    width: 100%;
+    margin-top: 20px;
+    gap: 10px;
+}
+.border-line{
+    width: 100%;
+    border-bottom: 1px solid #e5e5e5;
+    margin-top: 20px;
+}
+.list-disc{
+    list-style-type: disc;
+    margin-left: 20px;
+}
+.form-group{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.form-group label{
+    font-size: 14px;
+    font-weight: 500;
+}
+.form-group input{
+    padding: 10px;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 220px;
+    height: 45px;
+    background-color: #edf2f7;
+}
+.form-group textarea{
+    padding: 10px;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: #edf2f7;
+}
+.form-group select{
+    padding: 10px;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 220px;
+    height: 45px;
+    background-color: #edf2f7;
+}
+.sensor-wrapper select{
+    padding: 10px;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 350px;
+    height: 45px;
+    background-color: #edf2f7;
+}
+.form-group select:focus{
+    /* border: 1px solid lightgray; */
+    outline: none;
+}
+.form-group input:focus{
+    /* border: 1px solid lightgray; */
+    /* outline: none; */
+}
+.field-wrapper{
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.submit{
+    display: flex;
+    justify-content: right;
+    margin-top: 15px;
+}
+.submit-btn{
+    background-color: #f39c12;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+/* Calendar wrapper to ensure it's above content */
+.calendar-wrapper {
+    position: absolute;
+    z-index: 1000; /* Ensure it's on top */
+    background-color: white;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-group {
+    position: relative; /* Ensure the calendar positions correctly relative to the input */
+  }
+  .width-350{
+    width: 350px !important;
+}
+
+.custom-checkbox {
+    width: 15px !important;
+    height: 15px !important;
+}
+
+.checkbox-lablel {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.label-text{
+    font-size: 0.75rem !important;
+    color: #4a5568 !important;
+    font-weight: 700 !important;
+}

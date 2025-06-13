@@ -1,0 +1,128 @@
+.chatbot-box {
+  width: 350px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-top: 14px;
+  margin-left: 20px !important;
+}
+
+.chatbot-header {
+  background-color: #e4e1e1;
+  color: #0c0c0c;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+font-size: 16px;
+ font-weight: 600;
+ font-family: 'Arial', sans-serif;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Styling for the collapse icon to match the Users section arrow */
+.collapse-icon {
+  fill: #090909;
+  transition: transform 0.2s ease;
+  
+}
+
+/* Rotate when collapsed - matches the rotation in the Users section */
+.collapse-icon.collapsed {
+  transform: rotate(-90deg);
+}
+
+.chatbot-messages {
+  height: 600px;
+  overflow-y: auto;
+  padding: 10px;
+  background: #fff;
+}
+
+.chatbot-message {
+  margin-bottom: 10px;
+  line-height: 1.5;
+  padding: 8px 12px;
+  border-radius: 18px;
+  max-width: 80%;
+  word-wrap: break-word;
+}
+
+.user-message {
+  background-color: #e9e9ff; /* Light purple color */
+  color: #000;
+  margin-left: auto;
+  text-align: left;
+  align-self: flex-end;
+  display: block;
+}
+
+.ai-message {
+  background-color: #f1f1f1; /* Light gray */
+  color: #333;
+  margin-right: auto;
+  text-align: left;
+  align-self: flex-start;
+  display: block;
+}
+
+.welcome-message {
+  color: #777;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.loading-indicator {
+  text-align: center;
+  color: #777;
+  font-style: italic;
+  margin: 10px 0;
+}
+
+.chatbot-footer {
+  display: flex;
+  padding: 10px;
+  background: #f5f5f5;
+  border-top: 1px solid #ddd;
+}
+
+.chatbot-footer input {
+  flex: 1;
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 14px;
+}
+
+.chatbot-footer button {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.chatbot-footer button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Minimized state */
+.chatbot-box.minimized {
+  height: auto;
+}
+
+.chatbot-header .collapse-icon,
+.chatbot-header .collapse-icon svg,
+.chatbot-header .collapse-icon path {
+  color: #000000;             /* exactly the same dark gray */
+  fill: currentColor !important;
+}

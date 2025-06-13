@@ -1,0 +1,78 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin-bottom: 1rem;
+}
+.wrapper h1 {
+  margin-bottom: 0px; /* Add space below the login title */
+}
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+.wrapper {
+  width: 500px;
+  height: 300px;
+  text-align: center; 
+  background:#E4EBF1;
+  margin-top: -100px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; 
+}
+
+.wrapper .input-box {
+  position: center;
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  width: 80%;
+  margin: 30px 0;
+  margin-left: 50PX;
+  color:white; 
+  
+}
+.wrapper h1 {
+  padding-top: 20px; /* Adjust this value as needed */
+}
+
+.input-box input {
+  flex-grow: 100; 
+  margin-right: 5px; 
+  height: 50px;
+  border: 3px solid rgba(7, 0, 0, 0.2);
+  border-radius: 40px;
+  padding: 0 15px; 
+  color:#070000;  
+
+}
+
+/* The color of icons (username and pass) */
+.input-box .icon {
+  color: #232222; 
+
+}
+
+button[type="submit"] {
+  background-color: #030303;
+  color: white;
+  padding: 10px 15px; 
+  border: none; 
+  cursor: pointer; 
+  border-radius: 4px; 
+  font-size: 16px; 
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  
+}
+
