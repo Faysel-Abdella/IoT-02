@@ -57,8 +57,9 @@ import { BiPlus } from "react-icons/bi";
 import Modal from "../modal/index.js";
 import PdfGenerator from "../modal/components/pdfFile.js";
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import { DndProvider, useDrag, useDrop } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import { useDrag, useDrop } from "react-dnd";
+import MultiStepForm from "./MultiStepForm.js";
+import FormModal from "./../modal/form/FormModal.js"; // Adjust the path if necessary
 
 // --- React DnD Setup ---
 const ItemTypes = { CARD: "card" };
@@ -137,7 +138,7 @@ export default function HomePage() {
   const [isSensorOpen, setSensorOpen] = useState(false);
   const [isinterfaceOpen, setInterfaceOpen] = useState(false);
   const [isPrivacyOpen, setPrivacyOpen] = useState(false);
-
+  const [isMultiStepFormOpen, setIsMultiStepFormOpen] = useState(false);
   // --- Core State for Canvas and Arrows (Loads from localStorage) ---
   const [canvasCards, setCanvasCards] = useState(() => {
     const saved = localStorage.getItem(username + "_canvasCards");
@@ -232,9 +233,77 @@ export default function HomePage() {
     };
   }, [arrows, canvasCards]);
 
+  // Add this `descriptions` object to hold the text
+
+  const descriptions = {
+    user: "An individual whose personal data is collected or processed.",
+    Controller:
+      "The entity (person or organization) that determines the purposes and means of processing personal data.",
+    Dataprocessor:
+      "A party that processes personal data on behalf of the controller.",
+    battery:
+      "A power storage unit that supplies electrical energy to the system.",
+    hub: "A compact integrated circuit that runs embedded software to control devices.",
+    CameraModel: "A sensor capturing images and video.",
+    Power:
+      "The circuitry or hardware responsible for distributing and regulating power.",
+    Microcontroller:
+      "A compact integrated circuit that runs embedded software to control devices.",
+    Led: "A light‐emitting diode that provides visual signals or illumination.",
+    motor:
+      "An electromechanical device that converts electrical energy into rotational motion.",
+    Wheel: "A rotating component that enables movement or locomotion.",
+    Tag: "An electronic identifier (e.g., RFID tag) used to label or track objects.",
+    bluetooth:
+      "A short-range wireless protocol for data exchange between devices.",
+    wifi: "A wireless networking technology for high-speed Internet and LAN access.",
+    Gsm: "A cellular communication standard for mobile voice and data services.",
+    cloud:
+      "Remote servers accessed over the Internet for computing and storage.",
+    localstorage:
+      "On-device memory (e.g., hard drive, flash) used to store data locally.",
+    Temperature: "A sensor that measures ambient or object temperature.",
+    Humidity: "A device that detects the moisture level in the air.",
+    Light: "A photodetector that measures light intensity.",
+    Proximity:
+      "A sensor that detects the presence or distance of nearby objects without contact.",
+    Laser:
+      "A sensor that uses laser beams for precise distance or position measurement.",
+    Camera: "A sensor capturing images and video",
+    Voice: "A microphone or audio sensor that captures sound.",
+    GPS: "A receiver that obtains geolocation coordinates via satellite signals.",
+    Ultrasonic:
+      "A sensor that uses high-frequency sound waves to measure distance or detect objects.",
+    dashboard:
+      "A visual interface presenting key metrics and controls in one view.",
+    SmartPhone:
+      "Software applications (typically mobile or desktop) users interact with.",
+    Minimization:
+      "Collect or process only the minimum personal data necessary.",
+    Control: "Grant individuals the ability to manage how their data is used.",
+    Demonstrate:
+      "Show proof of compliance with privacy regulations and policies.",
+    Consentlist: "A record of user consents, detailing what they’ve agreed to.",
+    Encryption:
+      "Protect data by encoding it so only authorized parties can read it.",
+    Authorization: "Grant or restrict permissions for data access or actions.",
+    anonymous: "Process data without any personally identifiable information.",
+    Inform:
+      "Provide clear notice to individuals about data collection and use.",
+    Authentication:
+      "Verify the identity of a user or system before granting access.",
+  };
+
+  // A helper function to add descriptions to an array of items
+  const addDescriptions = (items) =>
+    items.map((item) => ({
+      ...item,
+      description: descriptions[item.id] || "No description available.",
+    }));
+
   // --- Sidebar Data ---
   const sidebarItems = {
-    users: [
+    users: addDescriptions([
       { id: "user", type: "user", name: "Data subject", imgSrc: userImg },
       {
         id: "Controller",
@@ -248,8 +317,8 @@ export default function HomePage() {
         name: "Data processor",
         imgSrc: DataprocessorImg,
       },
-    ],
-    devices: [
+    ]),
+    devices: addDescriptions([
       { id: "battery", type: "battery", name: "Battery", imgSrc: batteryImg },
       { id: "hub", type: "hub", name: "Smart hub", imgSrc: hubImg },
       {
@@ -265,14 +334,14 @@ export default function HomePage() {
         name: "Microcontroller",
         imgSrc: MicroImg,
       },
-    ],
-    actuators: [
+    ]),
+    actuators: addDescriptions([
       { id: "Led", type: "Led", name: "Led", imgSrc: LedImg },
       { id: "motor", type: "motor", name: "Motor", imgSrc: MotorImg },
       { id: "Wheel", type: "Wheel", name: "Wheel", imgSrc: WheelImg },
       { id: "Tag", type: "Tag", name: "Tag", imgSrc: TagImg },
-    ],
-    network: [
+    ]),
+    network: addDescriptions([
       {
         id: "bluetooth",
         type: "bluetooth",
@@ -288,12 +357,13 @@ export default function HomePage() {
         name: "Local Storage",
         imgSrc: localStorageImg,
       },
-    ],
+    ]),
     sensors: sensorsData.map((s) => ({
       ...s,
       imgSrc: sensorImages[s.type] || sensorImages.default,
+      description: descriptions[s.name] || "No description available.",
     })),
-    interfaces: [
+    interfaces: addDescriptions([
       {
         id: "dashboard",
         type: "dashboard",
@@ -306,8 +376,8 @@ export default function HomePage() {
         name: "Apps",
         imgSrc: smartPhoneImg,
       },
-    ],
-    privacy: [
+    ]),
+    privacy: addDescriptions([
       {
         id: "Minimization",
         type: "Minimization",
@@ -352,7 +422,7 @@ export default function HomePage() {
         name: "Authentication",
         imgSrc: Authenticationimg,
       },
-    ],
+    ]),
   };
 
   // --- UI and State Manipulation Functions ---
@@ -637,12 +707,16 @@ export default function HomePage() {
 
   const renderSidebarItem = (item) => (
     <DraggableSidebarItem key={item.id} {...item}>
-      <div className="list list-default" data-type={item.type} id={item.id}>
-        <div className="container-icons">
-          {" "}
-          <img src={item.imgSrc} alt={item.name} className="icon-img" />{" "}
-          <p>{item.name}</p>{" "}
+      {/* Add a wrapper for positioning the tooltip */}
+      <div className="sidebar-item-wrapper">
+        <div className="list list-default" data-type={item.type} id={item.id}>
+          <div className="container-icons">
+            <img src={item.imgSrc} alt={item.name} className="icon-img" />
+            <p>{item.name}</p>
+          </div>
         </div>
+        {/* The tooltip text itself */}
+        <span className="tooltip-text">{item.description}</span>
       </div>
     </DraggableSidebarItem>
   );
@@ -1009,6 +1083,14 @@ export default function HomePage() {
               {" "}
               <i className="fa-solid fa-trash"></i>{" "}
             </button>
+            <button
+              className="del-btn"
+              title="Open Multi-Step Form" // Updated title for clarity
+              onClick={() => setIsMultiStepFormOpen(true)}
+            >
+              {" "}
+              <i className="fa-solid fa-plus"></i>
+            </button>
           </div>
 
           {/* Canvas Area */}
@@ -1194,6 +1276,14 @@ export default function HomePage() {
           </div>
         )}
       </div>
+      {isMultiStepFormOpen && (
+        <FormModal onClose={() => setIsMultiStepFormOpen(false)}>
+          <MultiStepForm
+            // If MultiStepForm needs its own close function, you can pass it like this:
+            onClose={() => setIsMultiStepFormOpen(false)}
+          />
+        </FormModal>
+      )}
     </div>
   );
 }

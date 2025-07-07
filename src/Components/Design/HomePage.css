@@ -490,6 +490,51 @@ input[type="radio"] {
 } */
 
 /*Sidebar*/
+/* The wrapper for the sidebar item, needed for positioning */
+.sidebar-item-wrapper {
+  position: relative;
+  display: inline-block; /* Or block, depending on your layout */
+}
+
+/* The tooltip text - hidden by default */
+.sidebar-item-wrapper .tooltip-text {
+  visibility: hidden;
+  width: 200px; /* Adjust width as needed */
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 10;
+  bottom: 110%; /* Position above the item */
+  left: 50%;
+  margin-left: -100px; /* Use half of the width to center */
+
+  /* Fade in effect */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Show the tooltip when hovering over the wrapper */
+.sidebar-item-wrapper:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Optional: Add an arrow */
+.sidebar-item-wrapper .tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 100%; /* At the bottom of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #333 transparent transparent transparent;
+}
 /* make header click-through and arrow on the right */
 /* Improved section header with integrated arrow */
 /* Bold section headers with table-like styling */

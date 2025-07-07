@@ -1,0 +1,404 @@
+/* ================================================= */
+/* ===           GLOBAL FORM STYLES              === */
+/* ================================================= */
+
+.multi-step-form {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+  background-color: white;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    sans-serif;
+}
+
+/* --- Progress Section --- */
+.progress-section {
+  margin-bottom: 32px;
+}
+
+.steps-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.step-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  position: relative;
+}
+
+.step-label {
+  background: none;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b7280;
+  cursor: pointer;
+  transition: color 0.2s;
+  padding: 8px 4px;
+  margin-bottom: 16px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.step-label:hover {
+  color: #dc2626;
+}
+
+.step-label.active {
+  color: #dc2626;
+}
+
+.step-progress {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  position: relative;
+}
+
+.progress-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid #d1d5db;
+  background-color: white;
+  cursor: pointer;
+  transition: all 0.2s;
+  z-index: 2;
+  position: relative;
+}
+
+.progress-dot.completed {
+  background-color: #dc2626;
+  border-color: #dc2626;
+}
+
+.progress-line {
+  position: absolute;
+  left: 50%;
+  width: calc(100% + 32px);
+  height: 2px;
+  background-color: #d1d5db;
+  transition: background-color 0.2s;
+  z-index: 1;
+}
+
+.progress-line.completed {
+  background-color: #dc2626;
+}
+
+.step-container:last-child .progress-line {
+  display: none;
+}
+
+/* --- Form Card & Content --- */
+.form-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 32px;
+  margin-bottom: 24px;
+  background-color: white;
+}
+
+.step-content {
+  min-height: 400px;
+}
+
+.step-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 24px;
+}
+
+.form-section {
+  margin-bottom: 32px;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.clear-selection-btn {
+  background-color: #6b7280;
+  color: white;
+  border: none;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.clear-selection-btn:hover {
+  background-color: #4b5563;
+}
+
+/* --- General Input Fields --- */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 8px;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background-color: #f9fafb;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  font-family: inherit;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-textarea {
+  resize: vertical;
+}
+
+.url-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* --- Navigation Buttons --- */
+.navigation-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+
+.btn {
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: #6b7280;
+  border: 1px solid #d1d5db;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: #f9fafb;
+}
+
+.btn-primary {
+  background-color: #dc2626;
+  color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: #b91c1c;
+}
+
+/* ================================================================ */
+/* === STYLES FOR SECURITY MECHANISMS (CHECKBOXES/RADIO/CIRCLES) === */
+/* ================================================================ */
+
+/* --- Main Layout for Checkbox/Radio Lists --- */
+.checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.checkbox-list,
+.radio-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px; /* A little space between each list item */
+  margin-bottom: 16px;
+}
+
+/* --- The Main Label (the entire clickable row) --- */
+.checkbox-label,
+.radio-label {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+  padding: 8px 4px; /* Vertical padding for easier clicking */
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.checkbox-label:hover,
+.radio-label:hover {
+  background-color: #f9fafb; /* Subtle hover effect */
+}
+
+/* --- The actual <input> element --- */
+/* This is a critical rule to prevent the input from being covered */
+.checkbox-label input,
+.radio-label input {
+  flex-shrink: 0; /* Prevents the input from being squished by long text */
+  margin-right: 12px; /* Space between the input and the content */
+  cursor: pointer;
+}
+
+/* --- Container for the Text and Color Circle --- */
+/* This container allows us to align the text and circle properly */
+.label-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Pushes text left and circle right */
+  width: 100%;
+}
+
+.checkbox-text,
+.radio-text {
+  user-select: none; /* Prevents text selection on click */
+  padding-right: 10px; /* Ensures space between text and circle */
+}
+
+/* --- The Colored Circle --- */
+.color-indicator {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid;
+  transition: background-color 0.2s ease-in-out;
+  flex-shrink: 0; /* Also prevent the circle from shrinking */
+}
+
+/* --- Tooltip on Hover --- */
+.tooltip-container {
+  position: relative;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  width: 250px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 10px;
+  position: absolute;
+  z-index: 10;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%); /* Better for centering than margin */
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none; /* Prevents tooltip from blocking hover on items below */
+}
+
+.tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: #333 transparent transparent transparent;
+}
+
+/* Show the tooltip when hovering its parent container */
+.tooltip-container:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+.title-description {
+  font-size: small;
+  padding-bottom: 10px;
+}
+
+/* ================================================= */
+/* ===             RESPONSIVE DESIGN             === */
+/* ================================================= */
+@media (max-width: 768px) {
+  .multi-step-form {
+    padding: 16px;
+  }
+  .form-card {
+    padding: 24px 16px;
+  }
+  .form-grid,
+  .checkbox-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+/* Add this block to the end of your stylesheet */
+
+/* ================================================================ */
+/* ===         STYLES FOR NESTED CHECKBOXES (DATA PRACTICES)    === */
+/* ================================================================ */
+
+.parent-checkbox-group {
+  /* This helps contain the parent and its nested children */
+  display: flex;
+  flex-direction: column;
+}
+
+.nested-checkbox-list {
+  /* This creates the visual indentation */
+  margin-top: 8px;
+  margin-left: 20px;
+  padding-left: 20px;
+  border-left: 2px solid #e5e7eb; /* A nice vertical line */
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nested-label {
+  /* Make nested labels slightly less prominent if desired */
+  font-size: 13px;
+  color: #4b5563;
+}
+
+.section-description {
+  font-size: 14px;
+  color: #6b7280; /* A nice, standard gray color */
+  margin-top: -12px; /* Pull it a bit closer to the title above it */
+  margin-bottom: 16px; /* Add space before the form options below it */
+}
