@@ -52,10 +52,10 @@ const SecurityMechanisms = ({ formData, updateFormData }) => {
     updateFormData("securityMechanisms", field, value);
   };
 
-  const handleInputChange = (field, value) => {
-    updateFormData("securityMechanisms", field, value);
-  };
-
+  // const handleInputChange = (field, value) => {
+  //   updateFormData("securityMechanisms", field, value);
+  // };
+  console.log("SecurityMechanisms component is re-rendering");
   return (
     <div className="step-content">
       <h2 className="step-title">Security Mechanisms</h2>

@@ -60,6 +60,7 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 import { useDrag, useDrop } from "react-dnd";
 import MultiStepForm from "./MultiStepForm.js";
 import FormModal from "./../modal/form/FormModal.js"; // Adjust the path if necessary
+import PdfPreview from "./pdf/PdfPreview.js"; // Adjust path
 
 // --- React DnD Setup ---
 const ItemTypes = { CARD: "card" };
@@ -115,6 +116,54 @@ const sensorImages = {
 };
 
 export default function HomePage() {
+  const [formData, setFormData] = useState({
+    // Based on your DeviceInformation component (assumed simple text fields)
+    deviceInfo: {
+      manufacturer: "",
+      deviceName: "",
+      modelNumber: "",
+      firmwareVersion: "",
+      updatedOn: "",
+      manufacturedIn: "",
+    },
+
+    // Based on the fields in your SecurityMechanisms.js component and its data
+    securityMechanisms: {
+      securityUpdates: [],
+      accessControl: [],
+      securityOversight: "",
+      technicalDocumentation: [],
+    },
+
+    // Based on the fields in your DataPractices.js component and dataPracticesData
+    dataPractices: {
+      sensorDataCollection: {}, // For the special parent-child checkbox group
+      dataFrequency: [],
+      dataPurpose: [],
+      dataStorage: [],
+      localDataRetention: "", // Radio button group
+      cloudDataStorage: [],
+      cloudDataRetention: "", // Radio button group
+      dataSharedWith: [],
+      dataSharingFrequency: "", // Radio button group
+      dataSoldTo: [],
+      otherDataCollected: [],
+      childrensDataHandling: [],
+      dataLinkage: [],
+      compliance: [],
+      dataInference: [],
+    },
+
+    // Based on the fields in your MoreInformation.js component and its data
+    moreInformation: {
+      privacyPolicy: [],
+      offlineFunctionality: "", // Radio button group
+      noDataFunctionality: [],
+      physicalActuations: [],
+      compatiblePlatforms: "", // Textarea
+    },
+  });
+
   const username = localStorage.getItem("username") || "User";
   const dispatch = useDispatch();
 
@@ -158,6 +207,16 @@ export default function HomePage() {
     if (!id1 || !id2) return null;
     return [id1, id2].sort().join("-");
   };
+
+  const updateFormData = useCallback((stepKey, field, value) => {
+    setFormData((prev) => ({
+      ...prev,
+      [stepKey]: {
+        ...prev[stepKey],
+        [field]: value,
+      },
+    }));
+  }, []);
 
   // --- Effects to Save State to localStorage ---
   useEffect(() => {
@@ -1280,8 +1339,10 @@ export default function HomePage() {
         <FormModal onClose={() => setIsMultiStepFormOpen(false)}>
           <MultiStepForm
             // If MultiStepForm needs its own close function, you can pass it like this:
-            onClose={() => setIsMultiStepFormOpen(false)}
+            formData={formData}
+            updateFormData={updateFormData}
           />
+          <PdfPreview formData={formData} />
         </FormModal>
       )}
     </div>

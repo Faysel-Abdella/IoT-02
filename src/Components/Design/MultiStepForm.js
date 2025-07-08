@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import DeviceInformation from "./steps/DeviceInformation";
 import SecurityMechanisms from "./steps/SecurityMechanisms";
 import DataPractices from "./steps/DataPractices";
 import MoreInformation from "./steps/MoreInformation";
 import "./MultiStepForm.css";
-import PdfDocument from "./pdf/pdfDocument"; // 3. Import your new PDF template
-import { PDFViewer } from "@react-pdf/renderer"; // 2. Import PDFViewer
+import { PDFDownloadLink } from "@react-pdf/renderer"; // 2. Import PDFViewer
+import PdfDocument from "./pdf/pdfDocument";
 
 const steps = [
   { id: 1, title: "Device Information", key: "deviceInfo" },
@@ -16,73 +16,8 @@ const steps = [
   { id: 4, title: "More Information", key: "moreInformation" },
 ];
 
-const MultiStepForm = () => {
-  const [formData, setFormData] = useState({
-    deviceInfo: {
-      manufacturer: "",
-      deviceName: "",
-      modelNumber: "",
-      firmwareVersion: "",
-      updatedOn: "",
-      manufacturedIn: "",
-    },
-    securityMechanisms: {
-      securityUpdates: [],
-      securityUpdatesInfo: "",
-      accessControl: [],
-      accessControlInfo: "",
-      securityOversight: "",
-      securityOversightInfo: "",
-      portsProtocols: "",
-      hardwareSafety: "",
-      softwareSafety: "",
-      personalSafety: "",
-      vulnerabilityDisclosure: "",
-      softwareHardwareComposition: "",
-      encryptionKeyManagement: "",
-    },
-    dataPractices: {
-      sensors: [],
-      otherCollectedData: "",
-      otherCollectedDataInfo: "",
-      childrenDataHandling: "",
-      childrenDataHandlingInfo: "",
-      dataLinkage: "",
-      dataLinkageInfo: "",
-      compliance: "GDPR",
-      complianceInfo: "",
-      dataInference: "",
-      dataInferenceInfo: "",
-      privacyPolicyUrl: "",
-    },
-    moreInformation: {
-      detailedLabelUrl: "",
-      contactPhone: "",
-      contactPhoneInfo: "",
-      contactEmail: "",
-      contactEmailInfo: "",
-      functionalityOffline: "",
-      functionalityOfflineInfo: "",
-      functionalityNoData: "",
-      functionalityNoDataInfo: "",
-      physicalActuations: "",
-      physicalActuationsInfo: "",
-      compatiblePlatforms: "",
-      compatiblePlatformsInfo: "",
-    },
-  });
-
+const MultiStepForm = ({ formData, updateFormData }) => {
   const [currentStep, setCurrentStep] = useState(1);
-
-  const updateFormData = (stepKey, field, value) => {
-    setFormData((prev) => ({
-      ...prev,
-      [stepKey]: {
-        ...prev[stepKey],
-        [field]: value,
-      },
-    }));
-  };
 
   const handleNext = () => {
     if (currentStep < steps.length) {
@@ -100,62 +35,42 @@ const MultiStepForm = () => {
     setCurrentStep(stepNumber);
   };
 
-  const handleDownload = () => {
-    // Create a downloadable JSON file with all form data
-    const dataStr = JSON.stringify(formData, null, 2);
-    const dataUri =
-      "data:application/json;charset=utf-8," + encodeURIComponent(dataStr);
+  // const renderStepContent = () => {
+  //   const currentStepData = formData[steps[currentStep - 1].key];
 
-    const exportFileDefaultName = "iot-security-label-data.json";
-
-    const linkElement = document.createElement("a");
-    linkElement.setAttribute("href", dataUri);
-    linkElement.setAttribute("download", exportFileDefaultName);
-    linkElement.click();
-  };
-
-  const renderStepContent = () => {
-    const currentStepData = formData[steps[currentStep - 1].key];
-
-    switch (currentStep) {
-      case 1:
-        return (
-          <DeviceInformation
-            formData={currentStepData}
-            updateFormData={updateFormData}
-          />
-        );
-      case 2:
-        return (
-          <SecurityMechanisms
-            formData={currentStepData}
-            updateFormData={updateFormData}
-          />
-        );
-      case 3:
-        return (
-          <DataPractices
-            formData={currentStepData}
-            updateFormData={updateFormData}
-          />
-        );
-      case 4:
-        return (
-          <MoreInformation
-            formData={currentStepData}
-            updateFormData={updateFormData}
-          />
-        );
-      default:
-        return null;
-    }
-  };
-
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+  //   switch (currentStep) {
+  //     case 1:
+  //       return (
+  //         <DeviceInformation
+  //           formData={currentStepData}
+  //           updateFormData={updateFormData}
+  //         />
+  //       );
+  //     case 2:
+  //       return (
+  //         <SecurityMechanisms
+  //           formData={currentStepData}
+  //           updateFormData={updateFormData}
+  //         />
+  //       );
+  //     case 3:
+  //       return (
+  //         <DataPractices
+  //           formData={currentStepData}
+  //           updateFormData={updateFormData}
+  //         />
+  //       );
+  //     case 4:
+  //       return (
+  //         <MoreInformation
+  //           formData={currentStepData}
+  //           updateFormData={updateFormData}
+  //         />
+  //       );
+  //     default:
+  //       return null;
+  //   }
+  // };
 
   return (
     <div className="multi-step-form">
@@ -194,7 +109,35 @@ const MultiStepForm = () => {
       </div>
 
       {/* Form Content */}
-      <div className="form-card">{renderStepContent()}</div>
+      {/* <div className="form-card">{renderStepContent()}</div> */}
+
+      <div className="form-card">
+        {steps.map((step) => {
+          // Determine which component to render for the current step in the loop
+          const StepComponent = {
+            1: DeviceInformation,
+            2: SecurityMechanisms,
+            3: DataPractices,
+            4: MoreInformation,
+          }[step.id];
+
+          if (!StepComponent) return null;
+
+          return (
+            // This div now has a STABLE and UNIQUE key.
+            // This is the most important part of the fix.
+            <div
+              key={step.id}
+              style={{ display: currentStep === step.id ? "block" : "none" }}
+            >
+              <StepComponent
+                formData={formData[step.key]}
+                updateFormData={updateFormData}
+              />
+            </div>
+          );
+        })}
+      </div>
 
       {/* Navigation Buttons */}
       <div className="navigation-buttons">
@@ -207,9 +150,16 @@ const MultiStepForm = () => {
         </button>
 
         {currentStep === steps.length ? (
-          <button onClick={handleDownload} className="btn btn-primary">
-            Download
-          </button>
+          <PDFDownloadLink
+            document={<PdfDocument formData={formData} />}
+            fileName="iot-security-label.pdf"
+          >
+            {({ loading }) => (
+              <button className="btn btn-primary" disabled={loading}>
+                {loading ? "Generating PDF..." : "Download PDF"}
+              </button>
+            )}
+          </PDFDownloadLink>
         ) : (
           <button onClick={handleNext} className="btn btn-primary">
             Next →
@@ -217,16 +167,9 @@ const MultiStepForm = () => {
         )}
       </div>
 
-      <div className="pdf-preview-section">
-        <h3>Live PDF Preview:</h3>
-        {isClient ? (
-          <PDFViewer style={{ width: "100%", height: "800px" }}>
-            <PdfDocument formData={formData} />
-          </PDFViewer>
-        ) : (
-          <div className="placeholder-text">Loading PDF Preview...</div>
-        )}
-      </div>
+      {/* <div className="pdf-preview-section">
+        <PdfPreview formData={formData} />
+      </div> */}
     </div>
   );
 };
