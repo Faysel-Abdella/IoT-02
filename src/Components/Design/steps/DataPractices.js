@@ -26,57 +26,47 @@ const ColorCircle = ({ color, isChecked }) => {
 };
 
 const DataPractices = ({ formData, updateFormData }) => {
+  const parentKey = "dataPractices";
+
   const handleParentChange = (parentValue) => {
     const currentSelections = formData.sensorDataCollection || {};
     const newSelections = { ...currentSelections };
-
-    // If the parent is already checked, we uncheck it by deleting it.
     if (newSelections[parentValue]) {
       delete newSelections[parentValue];
     } else {
-      // Otherwise, we check it by adding it with an empty array for its children.
       newSelections[parentValue] = [];
     }
-    updateFormData("dataPractices", "sensorDataCollection", newSelections);
+    // Call with the variable
+    updateFormData(parentKey, "sensorDataCollection", newSelections);
   };
 
   const handleChildChange = (parentValue, childValue) => {
     const currentSelections = formData.sensorDataCollection || {};
     const newSelections = { ...currentSelections };
-
     const currentChildren = newSelections[parentValue] || [];
-    const childIndex = currentChildren.indexOf(childValue);
-
-    if (childIndex > -1) {
-      // If child is already selected, remove it
+    if (currentChildren.includes(childValue)) {
       newSelections[parentValue] = currentChildren.filter(
         (c) => c !== childValue
       );
     } else {
-      // Otherwise, add it
       newSelections[parentValue] = [...currentChildren, childValue];
     }
-    updateFormData("dataPractices", "sensorDataCollection", newSelections);
+    // Call with the variable
+    updateFormData(parentKey, "sensorDataCollection", newSelections);
   };
 
-  // REMOVE the handleRadioChange function and REPLACE it with this:
   const handleCheckboxChange = (field, value) => {
-    // Get the current array of selections for this field, or an empty array
     const currentValues = formData[field] || [];
-
-    // Check if the value is already in the array
     const updatedValues = currentValues.includes(value)
-      ? // If it is, remove it (uncheck)
-        currentValues.filter((item) => item !== value)
-      : // If it's not, add it (check)
-        [...currentValues, value];
-
-    // Update the form state
-    updateFormData("dataPractices", field, updatedValues);
+      ? currentValues.filter((item) => item !== value)
+      : [...currentValues, value];
+    // Call with the variable
+    updateFormData(parentKey, field, updatedValues);
   };
 
   const handleRadioChange = (field, value) => {
-    updateFormData("dataPractices", field, value);
+    // Call with the variable
+    updateFormData(parentKey, field, value);
   };
   return (
     <div className="step-content">
@@ -103,10 +93,10 @@ const DataPractices = ({ formData, updateFormData }) => {
                       <span className="checkbox-text">
                         {parentOption.label}
                       </span>
-                      <ColorCircle
+                      {/* <ColorCircle
                         color={parentOption.color}
                         isChecked={isParentChecked}
-                      />
+                      /> */}
                     </div>
                   </label>
                   <span className="tooltip-text">
@@ -180,7 +170,7 @@ const DataPractices = ({ formData, updateFormData }) => {
                   <div className="label-content">
                     <span className="checkbox-text">{option.label}</span>{" "}
                     {/* Use checkbox-text class */}
-                    <ColorCircle color={option.color} isChecked={isChecked} />
+                    {/* <ColorCircle color={option.color} isChecked={isChecked} /> */}
                   </div>
                 </label>
                 <span className="tooltip-text">{option.description}</span>
@@ -212,7 +202,7 @@ const DataPractices = ({ formData, updateFormData }) => {
                   />
                   <div className="label-content">
                     <span className="checkbox-text">{option.label}</span>
-                    <ColorCircle color={option.color} isChecked={isChecked} />
+                    {/* <ColorCircle color={option.color} isChecked={isChecked} /> */}
                   </div>
                 </label>
                 {option.description !== "" && (
@@ -246,7 +236,7 @@ const DataPractices = ({ formData, updateFormData }) => {
                   />
                   <div className="label-content">
                     <span className="checkbox-text">{option.label}</span>
-                    <ColorCircle color={option.color} isChecked={isChecked} />
+                    {/* <ColorCircle color={option.color} isChecked={isChecked} /> */}
                   </div>
                 </label>
                 <span className="tooltip-text">{option.description}</span>
@@ -278,7 +268,7 @@ const DataPractices = ({ formData, updateFormData }) => {
                   />
                   <div className="label-content">
                     <span className="radio-text">{option.label}</span>
-                    <ColorCircle color={option.color} isChecked={isChecked} />
+                    {/* <ColorCircle color={option.color} isChecked={isChecked} /> */}
                   </div>
                 </label>
                 <span className="tooltip-text">{option.description}</span>
@@ -310,7 +300,7 @@ const DataPractices = ({ formData, updateFormData }) => {
                   />
                   <div className="label-content">
                     <span className="checkbox-text">{option.label}</span>
-                    <ColorCircle color={option.color} isChecked={isChecked} />
+                    {/* <ColorCircle color={option.color} isChecked={isChecked} /> */}
                   </div>
                 </label>
                 {option.description !== "" && (
@@ -344,7 +334,7 @@ const DataPractices = ({ formData, updateFormData }) => {
                   />
                   <div className="label-content">
                     <span className="radio-text">{option.label}</span>
-                    <ColorCircle color={option.color} isChecked={isChecked} />
+                    {/* <ColorCircle color={option.color} isChecked={isChecked} /> */}
                   </div>
                 </label>
                 <span className="tooltip-text">{option.description}</span>
@@ -376,7 +366,7 @@ const DataPractices = ({ formData, updateFormData }) => {
                   />
                   <div className="label-content">
                     <span className="checkbox-text">{option.label}</span>
-                    <ColorCircle color={option.color} isChecked={isChecked} />
+                    {/* <ColorCircle color={option.color} isChecked={isChecked} /> */}
                   </div>
                 </label>
                 <span className="tooltip-text">{option.description}</span>
@@ -408,7 +398,7 @@ const DataPractices = ({ formData, updateFormData }) => {
                   />
                   <div className="label-content">
                     <span className="radio-text">{option.label}</span>
-                    <ColorCircle color={option.color} isChecked={isChecked} />
+                    {/* <ColorCircle color={option.color} isChecked={isChecked} /> */}
                   </div>
                 </label>
                 <span className="tooltip-text">{option.description}</span>
@@ -440,7 +430,7 @@ const DataPractices = ({ formData, updateFormData }) => {
                   />
                   <div className="label-content">
                     <span className="checkbox-text">{option.label}</span>
-                    <ColorCircle color={option.color} isChecked={isChecked} />
+                    {/* <ColorCircle color={option.color} isChecked={isChecked} /> */}
                   </div>
                 </label>
                 {option.description !== "" && (
@@ -474,7 +464,7 @@ const DataPractices = ({ formData, updateFormData }) => {
                   />
                   <div className="label-content">
                     <span className="checkbox-text">{option.label}</span>
-                    <ColorCircle color={option.color} isChecked={isChecked} />
+                    {/* <ColorCircle color={option.color} isChecked={isChecked} /> */}
                   </div>
                 </label>
                 <span className="tooltip-text">{option.description}</span>
@@ -512,7 +502,7 @@ const DataPractices = ({ formData, updateFormData }) => {
                   />
                   <div className="label-content">
                     <span className="checkbox-text">{option.label}</span>
-                    <ColorCircle color={option.color} isChecked={isChecked} />
+                    {/* <ColorCircle color={option.color} isChecked={isChecked} /> */}
                   </div>
                 </label>
                 <span className="tooltip-text">{option.description}</span>
@@ -543,7 +533,7 @@ const DataPractices = ({ formData, updateFormData }) => {
                   />
                   <div className="label-content">
                     <span className="checkbox-text">{option.label}</span>
-                    <ColorCircle color={option.color} isChecked={isChecked} />
+                    {/* <ColorCircle color={option.color} isChecked={isChecked} /> */}
                   </div>
                 </label>
                 {/* This span will only render if a description exists */}
@@ -578,7 +568,7 @@ const DataPractices = ({ formData, updateFormData }) => {
                   <div className="label-content">
                     <span className="checkbox-text">{option.label}</span>
                     {/* This component will now automatically show Red when unchecked and Green when checked */}
-                    <ColorCircle color={option.color} isChecked={isChecked} />
+                    {/* <ColorCircle color={option.color} isChecked={isChecked} /> */}
                   </div>
                 </label>
                 <span className="tooltip-text">{option.description}</span>
@@ -612,7 +602,7 @@ const DataPractices = ({ formData, updateFormData }) => {
                   />
                   <div className="label-content">
                     <span className="checkbox-text">{option.label}</span>
-                    <ColorCircle color={option.color} isChecked={isChecked} />
+                    {/* <ColorCircle color={option.color} isChecked={isChecked} /> */}
                   </div>
                 </label>
                 {option.description !== "" && (

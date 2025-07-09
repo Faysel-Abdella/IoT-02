@@ -608,3 +608,55 @@ input[type="radio"] {
   height: 0;
   overflow: hidden;
 }
+
+/* 1. The Main Layout Container */
+.sticky-layout-container {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 24px;
+
+  /* On desktop, we need a fixed height for the sticky context to work */
+  height: 85vh; /* Using max-height is also fine */
+  align-items: start;
+}
+
+/* 2. The SCROLLABLE Form Panel */
+.form-panel-scrollable {
+  /* On desktop, this panel scrolls independently */
+  overflow-y: auto;
+  height: 100%;
+}
+/* 3. The STICKY Preview Panel */
+.preview-panel-sticky {
+  /* This is the "magic pin". */
+  position: sticky;
+
+  /* This tells the pin where to be. "Pin this poster 20px from the ceiling." */
+  top: 20px;
+}
+/* --- Optional: Responsive for Small Screens --- */
+@media (max-width: 900px) {
+  .sticky-layout-container {
+    /* 1. Stack the form and preview vertically */
+    grid-template-columns: 1fr;
+
+    /* 2. CRITICAL FIX: Let the container grow naturally with its content. */
+    /* This removes the fixed height that was hiding the previewer. */
+    height: auto;
+    max-height: none;
+  }
+
+  .form-panel-scrollable {
+    /* 3. CRITICAL FIX: Let the form have its own natural height. */
+    /* This stops it from taking up 100% of the viewport. */
+    height: auto;
+
+    /* 4. Allow the entire modal to scroll, not just this panel. */
+    overflow-y: scroll; /* or 'unset' */
+  }
+
+  .preview-panel-sticky {
+    /* 5. The previewer no longer needs to be sticky on mobile. */
+    position: static;
+  }
+}

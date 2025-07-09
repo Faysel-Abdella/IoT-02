@@ -1,9 +1,20 @@
-import React, { useRef, useEffect, useState, useCallback } from "react";
+import React, {
+  useRef,
+  useEffect,
+  useState,
+  useCallback,
+  useLayoutEffect,
+} from "react";
 import "react-responsive-modal/styles.css";
 
 import "./HomePage.css";
 import "./SensorGrid.css";
-import { FaChevronDown, FaChevronRight } from "react-icons/fa";
+import {
+  FaChevronDown,
+  FaChevronRight,
+  FaDownload,
+  FaFilePdf,
+} from "react-icons/fa";
 
 // --- All image imports ---
 import userImg from "./Images/users/user.png";
@@ -60,7 +71,10 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 import { useDrag, useDrop } from "react-dnd";
 import MultiStepForm from "./MultiStepForm.js";
 import FormModal from "./../modal/form/FormModal.js"; // Adjust the path if necessary
-import PdfPreview from "./pdf/PdfPreview.js"; // Adjust path
+import PdfPreviewer from "./pdf/PdfPreviewer.js"; // Adjust path
+import { useNavigate } from "react-router-dom";
+import { resetForm } from "../../lib/features/form/formSlice.js";
+// import { resetForm } from "@/lib/features/form/formSlice"; // Adjust path
 
 // --- React DnD Setup ---
 const ItemTypes = { CARD: "card" };
@@ -116,53 +130,53 @@ const sensorImages = {
 };
 
 export default function HomePage() {
-  const [formData, setFormData] = useState({
-    // Based on your DeviceInformation component (assumed simple text fields)
-    deviceInfo: {
-      manufacturer: "",
-      deviceName: "",
-      modelNumber: "",
-      firmwareVersion: "",
-      updatedOn: "",
-      manufacturedIn: "",
-    },
+  // const [formData, setFormData] = useState({
+  //   // Based on your DeviceInformation component (assumed simple text fields)
+  //   deviceInfo: {
+  //     manufacturer: "",
+  //     deviceName: "",
+  //     modelNumber: "",
+  //     firmwareVersion: "",
+  //     updatedOn: "",
+  //     manufacturedIn: "",
+  //   },
 
-    // Based on the fields in your SecurityMechanisms.js component and its data
-    securityMechanisms: {
-      securityUpdates: [],
-      accessControl: [],
-      securityOversight: "",
-      technicalDocumentation: [],
-    },
+  //   // Based on the fields in your SecurityMechanisms.js component and its data
+  //   securityMechanisms: {
+  //     securityUpdates: [],
+  //     accessControl: [],
+  //     securityOversight: "",
+  //     technicalDocumentation: [],
+  //   },
 
-    // Based on the fields in your DataPractices.js component and dataPracticesData
-    dataPractices: {
-      sensorDataCollection: {}, // For the special parent-child checkbox group
-      dataFrequency: [],
-      dataPurpose: [],
-      dataStorage: [],
-      localDataRetention: "", // Radio button group
-      cloudDataStorage: [],
-      cloudDataRetention: "", // Radio button group
-      dataSharedWith: [],
-      dataSharingFrequency: "", // Radio button group
-      dataSoldTo: [],
-      otherDataCollected: [],
-      childrensDataHandling: [],
-      dataLinkage: [],
-      compliance: [],
-      dataInference: [],
-    },
+  //   // Based on the fields in your DataPractices.js component and dataPracticesData
+  //   dataPractices: {
+  //     sensorDataCollection: {}, // For the special parent-child checkbox group
+  //     dataFrequency: [],
+  //     dataPurpose: [],
+  //     dataStorage: [],
+  //     localDataRetention: "", // Radio button group
+  //     cloudDataStorage: [],
+  //     cloudDataRetention: "", // Radio button group
+  //     dataSharedWith: [],
+  //     dataSharingFrequency: "", // Radio button group
+  //     dataSoldTo: [],
+  //     otherDataCollected: [],
+  //     childrensDataHandling: [],
+  //     dataLinkage: [],
+  //     compliance: [],
+  //     dataInference: [],
+  //   },
 
-    // Based on the fields in your MoreInformation.js component and its data
-    moreInformation: {
-      privacyPolicy: [],
-      offlineFunctionality: "", // Radio button group
-      noDataFunctionality: [],
-      physicalActuations: [],
-      compatiblePlatforms: "", // Textarea
-    },
-  });
+  //   // Based on the fields in your MoreInformation.js component and its data
+  //   moreInformation: {
+  //     privacyPolicy: [],
+  //     offlineFunctionality: "", // Radio button group
+  //     noDataFunctionality: [],
+  //     physicalActuations: [],
+  //     compatiblePlatforms: "", // Textarea
+  //   },
+  // });
 
   const username = localStorage.getItem("username") || "User";
   const dispatch = useDispatch();
@@ -188,6 +202,39 @@ export default function HomePage() {
   const [isinterfaceOpen, setInterfaceOpen] = useState(false);
   const [isPrivacyOpen, setPrivacyOpen] = useState(false);
   const [isMultiStepFormOpen, setIsMultiStepFormOpen] = useState(false);
+  const navigate = useNavigate();
+
+  // ... your other states
+
+  // --- 1. ADD THE REFS ---
+  // This ref will be attached to the scrollable div inside FormModal
+  const modalScrollRef = useRef(null);
+  // This ref will store the scroll position number
+  const scrollPositionRef = useRef(0);
+
+  // --- 2. ADD THE EFFECT HOOKS ---
+  // This hook runs BEFORE React updates the DOM.
+  useLayoutEffect(() => {
+    // We only act if the modal is open and our ref is attached to the div
+    if (isMultiStepFormOpen && modalScrollRef.current) {
+      // SAVE the current scroll position of our div
+      scrollPositionRef.current = modalScrollRef.current.scrollTop;
+    }
+  }); // No dependency array, runs on every render
+
+  // This hook runs AFTER React updates the DOM.
+  useLayoutEffect(() => {
+    // We only act if the modal is open and our ref is attached
+    if (isMultiStepFormOpen && modalScrollRef.current) {
+      // RESTORE the scroll position of our div
+      modalScrollRef.current.scrollTop = scrollPositionRef.current;
+    }
+  }); // No dependency array, runs after every render
+
+  const closeFormModal = () => {
+    setIsMultiStepFormOpen(false);
+    dispatch(resetForm());
+  };
   // --- Core State for Canvas and Arrows (Loads from localStorage) ---
   const [canvasCards, setCanvasCards] = useState(() => {
     const saved = localStorage.getItem(username + "_canvasCards");
@@ -208,15 +255,15 @@ export default function HomePage() {
     return [id1, id2].sort().join("-");
   };
 
-  const updateFormData = useCallback((stepKey, field, value) => {
-    setFormData((prev) => ({
-      ...prev,
-      [stepKey]: {
-        ...prev[stepKey],
-        [field]: value,
-      },
-    }));
-  }, []);
+  // const updateFormData = useCallback((stepKey, field, value) => {
+  //   setFormData((prev) => ({
+  //     ...prev,
+  //     [stepKey]: {
+  //       ...prev[stepKey],
+  //       [field]: value,
+  //     },
+  //   }));
+  // }, []);
 
   // --- Effects to Save State to localStorage ---
   useEffect(() => {
@@ -302,8 +349,8 @@ export default function HomePage() {
       "A party that processes personal data on behalf of the controller.",
     battery:
       "A power storage unit that supplies electrical energy to the system.",
-    hub: "A compact integrated circuit that runs embedded software to control devices.",
-    CameraModel: "A sensor capturing images and video.",
+    // hub: "A compact integrated circuit that runs embedded software to control devices.",
+    // CameraModel: "A sensor capturing images and video.",
     Power:
       "The circuitry or hardware responsible for distributing and regulating power.",
     Microcontroller:
@@ -379,13 +426,13 @@ export default function HomePage() {
     ]),
     devices: addDescriptions([
       { id: "battery", type: "battery", name: "Battery", imgSrc: batteryImg },
-      { id: "hub", type: "hub", name: "Smart hub", imgSrc: hubImg },
-      {
-        id: "CameraModel",
-        type: "CameraModel",
-        name: "CameraModel",
-        imgSrc: CameraModelImg,
-      },
+      // { id: "hub", type: "hub", name: "Smart hub", imgSrc: hubImg },
+      // {
+      //   id: "CameraModel",
+      //   type: "CameraModel",
+      //   name: "CameraModel",
+      //   imgSrc: CameraModelImg,
+      // },
       { id: "Power", type: "Power", name: "Power system", imgSrc: PowerImg },
       {
         id: "Microcontroller",
@@ -823,7 +870,7 @@ export default function HomePage() {
   };
 
   const GDPRPopup = ({
-    onStarClick,
+    // onStarClick,
     onLearnMoreClick,
     onCloseClick,
     userType,
@@ -834,11 +881,11 @@ export default function HomePage() {
         <>
           <div className="header">
             <h3>Data Collection Notice</h3>
-            <div className="star-container">
+            {/* <div className="star-container">
               <StarRating
                 onStarClick={(rating) => onStarClick(rating, userType)}
               />
-            </div>
+            </div> */}
           </div>
           <p>
             Collect only the data necessary for your goals to keep it relevant
@@ -859,11 +906,11 @@ export default function HomePage() {
         <>
           <div className="header">
             <h3>Privacy Notice</h3>
-            <div className="star-container">
+            {/* <div className="star-container">
               <StarRating
                 onStarClick={(rating) => onStarClick(rating, userType)}
               />
-            </div>
+            </div> */}
           </div>
           <p>
             Users must be informed when and who and how their data is being
@@ -1142,12 +1189,7 @@ export default function HomePage() {
               {" "}
               <i className="fa-solid fa-trash"></i>{" "}
             </button>
-            <button
-              className="del-btn"
-              title="Open Multi-Step Form" // Updated title for clarity
-              onClick={() => setIsMultiStepFormOpen(true)}
-            >
-              {" "}
+            <button onClick={() => setIsMultiStepFormOpen(true)}>
               <i className="fa-solid fa-plus"></i>
             </button>
           </div>
@@ -1163,7 +1205,7 @@ export default function HomePage() {
 
           {showPopup && (
             <GDPRPopup
-              onStarClick={handleStarClick}
+              // onStarClick={handleStarClick}
               onLearnMoreClick={handleLearnMoreClick}
               onCloseClick={handleCloseClick}
               userType={CurrentItem}
@@ -1192,7 +1234,7 @@ export default function HomePage() {
                   textAlign: "center",
                 }}
               >
-                <img
+                {/* <img
                   src={log}
                   alt="Interaction Log Icon"
                   className="interaction-log-img"
@@ -1206,23 +1248,23 @@ export default function HomePage() {
                     onCloseClick={toggleInteractionLog}
                     onStarClick={handleStarClick}
                   />
-                )}
+                )} */}
                 {typeof window !== "undefined" && (
                   <PDFDownloadLink
                     document={<PdfGenerator />}
                     fileName="download.pdf"
-                    style={{ textDecoration: "none", marginLeft: 10 }}
+                    style={{
+                      textDecoration: "none",
+                      marginLeft: 10,
+                    }}
                   >
                     {({ loading }) => (
-                      <button className="del-button" disabled={loading}>
-                        <i
-                          className="fa-regular fa-file-pdf"
-                          style={{
-                            color: "red",
-                            fontSize: "24px",
-                            border: "none",
-                          }}
-                        ></i>
+                      <button
+                        className="del-button"
+                        disabled={loading}
+                        style={{ padding: 5 }}
+                      >
+                        <FaDownload color="#D93831" size="1.3em" />
                         {loading ? " Loading..." : " Download Pdf"}
                       </button>
                     )}
@@ -1336,13 +1378,17 @@ export default function HomePage() {
         )}
       </div>
       {isMultiStepFormOpen && (
-        <FormModal onClose={() => setIsMultiStepFormOpen(false)}>
-          <MultiStepForm
-            // If MultiStepForm needs its own close function, you can pass it like this:
-            formData={formData}
-            updateFormData={updateFormData}
-          />
-          <PdfPreview formData={formData} />
+        // Pass the ref to the FormModal component
+        <FormModal onClose={closeFormModal} ref={modalScrollRef}>
+          <div className="sticky-layout-container">
+            <div className="form-panel-scrollable">
+              <MultiStepForm />
+            </div>
+            <div className="preview-panel-sticky">
+              {/* Ensure PdfPreviewer itself doesn't have a style that breaks layout */}
+              <PdfPreviewer />
+            </div>
+          </div>
         </FormModal>
       )}
     </div>

@@ -1,0 +1,39 @@
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- PCB Board with rounded corners -->
+  <rect x="50" y="50" width="300" height="300" rx="40" ry="40" fill="#3c9d63" stroke="#348a56" stroke-width="3"/>
+  
+  <!-- Mounting holes with gold rings -->
+  <circle cx="100" cy="100" r="20" fill="#e9d28c" stroke="#d8c17b" stroke-width="2"/>
+  <circle cx="100" cy="100" r="12" fill="#3c9d63"/>
+  
+  <circle cx="300" cy="100" r="20" fill="#e9d28c" stroke="#d8c17b" stroke-width="2"/>
+  <circle cx="300" cy="100" r="12" fill="#3c9d63"/>
+  
+  <circle cx="100" cy="300" r="20" fill="#e9d28c" stroke="#d8c17b" stroke-width="2"/>
+  <circle cx="100" cy="300" r="12" fill="#3c9d63"/>
+  
+  <circle cx="300" cy="300" r="20" fill="#e9d28c" stroke="#d8c17b" stroke-width="2"/>
+  <circle cx="300" cy="300" r="12" fill="#3c9d63"/>
+  
+  <!-- Top silver element -->
+  <rect x="150" y="140" width="100" height="20" rx="10" ry="10" fill="#b5b5b5" stroke="#a0a0a0" stroke-width="1"/>
+  
+  <!-- Bottom silver element -->
+  <rect x="150" y="240" width="100" height="20" rx="10" ry="10" fill="#b5b5b5" stroke="#a0a0a0" stroke-width="1"/>
+  
+  <!-- Camera module square frame without white -->
+  <rect x="150" y="170" width="100" height="100" fill="#e8e8e8" stroke="#d0d0d0" stroke-width="1" opacity="0"/>
+  
+  <!-- Camera lens -->
+  <circle cx="200" cy="200" r="40" fill="#393953" stroke="#232336" stroke-width="2"/>
+  <circle cx="200" cy="200" r="32" fill="#4a4a66" stroke="#393953" stroke-width="1"/>
+  <circle cx="200" cy="200" r="24" fill="#5b5b7f" stroke="#4a4a66" stroke-width="1"/>
+  <circle cx="200" cy="200" r="16" fill="#a5c7e5" stroke="#5b5b7f" stroke-width="1"/>
+  <circle cx="200" cy="200" r="8" fill="#cce5f9" stroke="#a5c7e5" stroke-width="1"/>
+  
+  <!-- Left black component -->
+  <rect x="100" y="180" width="35" height="80" rx="3" ry="3" fill="#000000" stroke="#000000" stroke-width="1"/>
+  
+  <!-- Right black component -->
+  <rect x="265" y="180" width="35" height="80" rx="3" ry="3" fill="#000000" stroke="#000000" stroke-width="1"/>
+</svg>

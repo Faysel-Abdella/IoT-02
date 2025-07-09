@@ -74,7 +74,7 @@ const MoreInformation = ({ formData, updateFormData }) => {
                   />
                   <div className="label-content">
                     <span className="checkbox-text">{option.label}</span>
-                    <ColorCircle color={option.color} isChecked={isChecked} />
+                    {/* <ColorCircle color={option.color} isChecked={isChecked} /> */}
                   </div>
                 </label>
                 <span className="tooltip-text">{option.description}</span>
@@ -106,7 +106,7 @@ const MoreInformation = ({ formData, updateFormData }) => {
                   />
                   <div className="label-content">
                     <span className="radio-text">{option.label}</span>
-                    <ColorCircle color={option.color} isChecked={isChecked} />
+                    {/* <ColorCircle color={option.color} isChecked={isChecked} /> */}
                   </div>
                 </label>
                 {option.description !== "" && (
@@ -140,7 +140,7 @@ const MoreInformation = ({ formData, updateFormData }) => {
                   />
                   <div className="label-content">
                     <span className="checkbox-text">{option.label}</span>
-                    <ColorCircle color={option.color} isChecked={isChecked} />
+                    {/* <ColorCircle color={option.color} isChecked={isChecked} /> */}
                   </div>
                 </label>
                 {option.description !== "" && (
@@ -190,7 +190,7 @@ const MoreInformation = ({ formData, updateFormData }) => {
                   />
                   <div className="label-content">
                     <span className="checkbox-text">{option.label}</span>
-                    <ColorCircle color={option.color} isChecked={isChecked} />
+                    {/* <ColorCircle color={option.color} isChecked={isChecked} /> */}
                   </div>
                 </label>
                 <span className="tooltip-text">{option.description}</span>

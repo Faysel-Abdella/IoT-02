@@ -1,17 +1,19 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 // import LoginForm from "./Components/LoginForm/LoginForm";
 // import HomePage from './Components/Design/HomePage';
 import { initialData } from "./Components/constant/constant";
 import { loadData } from "./store/reducer/reducer";
-import { useDispatch } from "react-redux";
+import { Provider, useDispatch } from "react-redux";
 
 import "react-responsive-modal/styles.css";
 import HomePage from "./Components/Design/HomePage";
 import LoginForm from "./Components/LoginForm/LoginForm";
-import PdfGenerator from "./Components/modal/components/pdfFile";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { store as createStore } from "./store";
+
+const store = createStore();
 
 function App() {
   const dispatch = useDispatch();
@@ -22,20 +24,22 @@ function App() {
   }, [dispatch]);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<LoginForm />} />
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LoginForm />} />
 
-        <Route
-          path="/home"
-          element={
-            <DndProvider backend={HTML5Backend}>
-              <HomePage />{" "}
-            </DndProvider>
-          }
-        />
-      </Routes>
-    </BrowserRouter>
+          <Route
+            path="/home"
+            element={
+              <DndProvider backend={HTML5Backend}>
+                <HomePage />{" "}
+              </DndProvider>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
+    </Provider>
   );
 }
 

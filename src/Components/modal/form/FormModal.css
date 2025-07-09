@@ -10,6 +10,7 @@
   justify-content: center;
   align-items: center;
   z-index: 1000; /* Ensure it's on top of everything else */
+  overflow-y: hidden;
 }
 
 .modal-content {
@@ -18,9 +19,8 @@
   border-radius: 12px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
   width: 90%;
-  max-width: 900px; /* Adjust as needed */
+  max-width: 100%; /* Adjust as needed */
   max-height: 90vh; /* Max height to prevent it from going off-screen */
-  overflow-y: auto; /* Allow scrolling inside the modal if content is too long */
   position: relative; /* Needed for positioning the close button */
 }
 
@@ -47,3 +47,42 @@
   background: #d1d1d1;
   color: #000;
 }
+
+/* ... your existing styles for .modal-backdrop, .modal-content, etc. ... */
+
+/* New styles for the footer button container */
+.modal-footer-buttons {
+  padding: 20px;
+  border-top: 1px solid #eee;
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end; /* Aligns buttons to the right */
+  gap: 10px; /* Adds space between buttons if you have more than one */
+}
+
+/* A generic button style you can use */
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.btn-secondary {
+  background-color: #979a9c;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+/* .btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+} */

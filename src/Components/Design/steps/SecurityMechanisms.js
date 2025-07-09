@@ -84,7 +84,7 @@ const SecurityMechanisms = ({ formData, updateFormData }) => {
                       }
                     />
                     <span className="checkbox-text">{label}</span>
-                    <ColorCircle color={color} isChecked={isChecked} />
+                    {/* <ColorCircle color={color} isChecked={isChecked} /> */}
                   </label>
                   {description !== "" && (
                     <span className="tooltip-text">{description}</span>
@@ -118,7 +118,7 @@ const SecurityMechanisms = ({ formData, updateFormData }) => {
                       }
                     />
                     <span className="checkbox-text">{label}</span>
-                    <ColorCircle color={color} isChecked={isChecked} />
+                    {/* <ColorCircle color={color} isChecked={isChecked} /> */}
                   </label>
                   <span className="tooltip-text">{description}</span>
                 </div>
@@ -167,7 +167,7 @@ const SecurityMechanisms = ({ formData, updateFormData }) => {
                     {/* Item 2: A div to hold the text and circle */}
                     <div className="label-content">
                       <span className="radio-text">{label}</span>
-                      <ColorCircle color={color} isChecked={isChecked} />
+                      {/* <ColorCircle color={color} isChecked={isChecked} /> */}
                     </div>
                   </label>
                   <span className="tooltip-text">{description}</span>
@@ -198,7 +198,7 @@ const SecurityMechanisms = ({ formData, updateFormData }) => {
                     <div className="label-content">
                       <span className="checkbox-text">{label}</span>
                       {/* The new ColorCircle handles the logic automatically! */}
-                      <ColorCircle color={color} isChecked={isChecked} />
+                      {/* <ColorCircle color={color} isChecked={isChecked} /> */}
                     </div>
                   </label>
                   <span className="tooltip-text">{description}</span>

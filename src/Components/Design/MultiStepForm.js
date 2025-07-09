@@ -1,12 +1,18 @@
-"use client";
+"use client"; // This pragma might not be needed if it's a child of a client component
 
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { updateFormData } from "../../lib/features/form/formSlice"; // Make sure this path is correct for your setup
+
+// Import your step components
 import DeviceInformation from "./steps/DeviceInformation";
 import SecurityMechanisms from "./steps/SecurityMechanisms";
 import DataPractices from "./steps/DataPractices";
 import MoreInformation from "./steps/MoreInformation";
 import "./MultiStepForm.css";
-import { PDFDownloadLink } from "@react-pdf/renderer"; // 2. Import PDFViewer
+
+// Import your PDF components
+import { PDFDownloadLink } from "@react-pdf/renderer";
 import PdfDocument from "./pdf/pdfDocument";
 
 const steps = [
@@ -16,8 +22,18 @@ const steps = [
   { id: 4, title: "More Information", key: "moreInformation" },
 ];
 
-const MultiStepForm = ({ formData, updateFormData }) => {
+// REMOVE `formData` and `updateFormData` from the props
+const MultiStepForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
+  const dispatch = useDispatch();
+
+  // GET the form's data directly from the Redux store.
+  const formData = useSelector((state) => state.form);
+
+  // This single handler will DISPATCH the update action to Redux.
+  const handleUpdate = (stepKey, field, value) => {
+    dispatch(updateFormData({ stepKey, field, value }));
+  };
 
   const handleNext = () => {
     if (currentStep < steps.length) {
@@ -35,46 +51,9 @@ const MultiStepForm = ({ formData, updateFormData }) => {
     setCurrentStep(stepNumber);
   };
 
-  // const renderStepContent = () => {
-  //   const currentStepData = formData[steps[currentStep - 1].key];
-
-  //   switch (currentStep) {
-  //     case 1:
-  //       return (
-  //         <DeviceInformation
-  //           formData={currentStepData}
-  //           updateFormData={updateFormData}
-  //         />
-  //       );
-  //     case 2:
-  //       return (
-  //         <SecurityMechanisms
-  //           formData={currentStepData}
-  //           updateFormData={updateFormData}
-  //         />
-  //       );
-  //     case 3:
-  //       return (
-  //         <DataPractices
-  //           formData={currentStepData}
-  //           updateFormData={updateFormData}
-  //         />
-  //       );
-  //     case 4:
-  //       return (
-  //         <MoreInformation
-  //           formData={currentStepData}
-  //           updateFormData={updateFormData}
-  //         />
-  //       );
-  //     default:
-  //       return null;
-  //   }
-  // };
-
   return (
     <div className="multi-step-form">
-      {/* Progress Indicator */}
+      {/* Progress Indicator (No changes needed) */}
       <div className="progress-section">
         {/* Step Labels and Progress Dots Combined */}
         <div className="steps-container">
@@ -108,38 +87,35 @@ const MultiStepForm = ({ formData, updateFormData }) => {
         </div>
       </div>
 
-      {/* Form Content */}
-      {/* <div className="form-card">{renderStepContent()}</div> */}
-
+      {/* --- THE BULLETPROOF FORM CONTENT SECTION --- */}
       <div className="form-card">
-        {steps.map((step) => {
-          // Determine which component to render for the current step in the loop
-          const StepComponent = {
-            1: DeviceInformation,
-            2: SecurityMechanisms,
-            3: DataPractices,
-            4: MoreInformation,
-          }[step.id];
-
-          if (!StepComponent) return null;
-
-          return (
-            // This div now has a STABLE and UNIQUE key.
-            // This is the most important part of the fix.
-            <div
-              key={step.id}
-              style={{ display: currentStep === step.id ? "block" : "none" }}
-            >
-              <StepComponent
-                formData={formData[step.key]}
-                updateFormData={updateFormData}
-              />
-            </div>
-          );
-        })}
+        <div style={{ display: currentStep === 1 ? "block" : "none" }}>
+          <DeviceInformation
+            formData={formData.deviceInfo}
+            updateFormData={handleUpdate}
+          />
+        </div>
+        <div style={{ display: currentStep === 2 ? "block" : "none" }}>
+          <SecurityMechanisms
+            formData={formData.securityMechanisms}
+            updateFormData={handleUpdate}
+          />
+        </div>
+        <div style={{ display: currentStep === 3 ? "block" : "none" }}>
+          <DataPractices
+            formData={formData.dataPractices}
+            updateFormData={handleUpdate}
+          />
+        </div>
+        <div style={{ display: currentStep === 4 ? "block" : "none" }}>
+          <MoreInformation
+            formData={formData.moreInformation}
+            updateFormData={handleUpdate}
+          />
+        </div>
       </div>
 
-      {/* Navigation Buttons */}
+      {/* Navigation Buttons (No changes needed, but PDFLink now uses Redux formData) */}
       <div className="navigation-buttons">
         <button
           onClick={handlePrevious}
@@ -166,10 +142,6 @@ const MultiStepForm = ({ formData, updateFormData }) => {
           </button>
         )}
       </div>
-
-      {/* <div className="pdf-preview-section">
-        <PdfPreview formData={formData} />
-      </div> */}
     </div>
   );
 };

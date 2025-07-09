@@ -92,9 +92,9 @@
   background-color: #dc2626;
 }
 
-.step-container:last-child .progress-line {
+/* .step-container:last-child .progress-line {
   display: none;
-}
+} */
 
 /* --- Form Card & Content --- */
 .form-card {
