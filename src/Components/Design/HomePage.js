@@ -187,7 +187,7 @@ export default function HomePage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [currentDropItem, setCurrentCurrentItem] = useState(null);
-  const [showInteractionLog, setShowInteractionLog] = useState(false);
+  // const [showInteractionLog, setShowInteractionLog] = useState(false);
   const [history, setHistory] = useState([]);
 
   const [interactions, setInteractions] = useState(() => {
