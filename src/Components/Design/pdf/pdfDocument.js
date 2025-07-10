@@ -1,10 +1,10 @@
 import React from "react";
 import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
 
-// Verify these imports and the exported variables from these files
+// --- Data source imports (Unchanged) ---
 import { securityData } from "../steps/data/SecurityMechanismsData";
 import { dataPracticesData } from "../steps/data/dataPracticesData";
-import { MoreInformationsData } from "../steps/data/MoreInforrmationsData"; // Check this name carefully
+import { MoreInformationsData } from "../steps/data/MoreInforrmationsData";
 
 // --- STYLES (Unchanged) ---
 const styles = StyleSheet.create({
@@ -15,17 +15,17 @@ const styles = StyleSheet.create({
     fontFamily: "Helvetica-Bold",
     textAlign: "center",
   },
-  twoColumn: { flexDirection: "row", justifyContent: "space-between" },
-  column: { width: "48%" },
-  section: { marginBottom: 15 },
-  h2: {
+  section: { marginBottom: 20 },
+  sectionTitle: {
     fontSize: 14,
     fontFamily: "Helvetica-Bold",
     borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
+    borderBottomColor: "#eee",
     paddingBottom: 3,
     marginBottom: 8,
   },
+  twoColumn: { flexDirection: "row", justifyContent: "space-between" },
+  column: { width: "48%" },
   h3: { fontSize: 11, fontFamily: "Helvetica-Bold", marginBottom: 5 },
   field: { flexDirection: "row", marginBottom: 3 },
   fieldLabel: { fontFamily: "Helvetica-Bold", marginRight: 5 },
@@ -42,31 +42,34 @@ const styles = StyleSheet.create({
     color: "#555",
     marginTop: 2,
     borderWidth: 1,
-    borderColor: "#eee",
+    borderColor: "#f0f0f0",
     padding: 5,
     borderRadius: 3,
   },
 });
 
 // --- HELPER COMPONENTS ---
+
 const allDataSources = [securityData, dataPracticesData, MoreInformationsData];
 const findOptionData = (dataKey, value) => {
   if (!value) return null;
   for (const source of allDataSources) {
-    if (source && source[dataKey]) {
-      // Added check for source to be safe
+    if (source && source[dataKey] && Array.isArray(source[dataKey])) {
       const option = source[dataKey].find((o) => o.value === value);
       if (option) return option;
     }
   }
   console.error(
-    `[PDF Debug] Could not find option for dataKey: "${dataKey}" with value: "${value}"`
+    `[PDF Debug] Could not find an array named "${dataKey}" to search for value: "${value}"`
   );
-  return { label: `(Not Found: ${value})`, color: null };
+  return { label: `(ERROR: ${value})`, color: null };
 };
 
+// FIX: All helper components now correctly use explicit `return` statements.
 const Field = ({ label, value }) => {
-  if (!value) return null;
+  if (!value) {
+    return null;
+  }
   return (
     <View style={styles.field}>
       <Text style={styles.fieldLabel}>{label}:</Text>
@@ -74,8 +77,11 @@ const Field = ({ label, value }) => {
     </View>
   );
 };
+
 const TextAreaField = ({ label, value }) => {
-  if (!value) return null;
+  if (!value) {
+    return null;
+  }
   return (
     <View style={{ marginBottom: 8 }}>
       <Text style={styles.h3}>{label}</Text>
@@ -83,10 +89,15 @@ const TextAreaField = ({ label, value }) => {
     </View>
   );
 };
+
 const RadioField = ({ title, selectedValue, dataKey }) => {
-  if (!selectedValue) return null;
+  if (!selectedValue) {
+    return null;
+  }
   const option = findOptionData(dataKey, selectedValue);
-  if (!option) return null;
+  if (!option) {
+    return null;
+  }
   return (
     <View style={{ marginBottom: 8 }}>
       <Text style={styles.h3}>{title}</Text>
@@ -99,18 +110,24 @@ const RadioField = ({ title, selectedValue, dataKey }) => {
     </View>
   );
 };
+
 const CheckboxGroup = ({ title, selections = [], dataKey }) => {
-  if (!selections || selections.length === 0) return null;
+  if (!selections || selections.length === 0) {
+    return null;
+  }
   return (
     <View style={{ marginBottom: 8 }}>
       <Text style={styles.h3}>{title}</Text>
       {selections.map((value) => {
         const option = findOptionData(dataKey, value);
-        if (!option) return null;
+        if (!option) {
+          return null; // The inner map function also needs a return
+        }
         let color = option.color;
         if (typeof color === "object" && color !== null) {
           color = color.checked;
         }
+        // This inner map function also needs an explicit return
         return (
           <View key={value} style={styles.listItem}>
             {color && (
@@ -124,181 +141,187 @@ const CheckboxGroup = ({ title, selections = [], dataKey }) => {
   );
 };
 
-// --- THE MAIN PDF DOCUMENT ---
-const PdfDocument = ({ formData }) => {
-  console.log("PDF received this formData:", JSON.stringify(formData, null, 2));
+// --- SECTION COMPONENTS ---
+
+const DeviceInfoSection = ({ data }) => (
+  <View style={styles.section} wrap={false}>
+    <Text style={styles.sectionTitle}>Device Information</Text>
+    <View style={styles.twoColumn}>
+      <View style={styles.column}>
+        <Field label="Manufacturer" value={data.manufacturer} />
+        <Field label="Device Name" value={data.deviceName} />
+        <Field label="Model" value={data.modelNumber} />
+      </View>
+      <View style={styles.column}>
+        <Field label="Firmware" value={data.firmwareVersion} />
+        <Field label="Updated On" value={data.updatedOn} />
+        <Field label="Manufactured In" value={data.manufacturedIn} />
+      </View>
+    </View>
+  </View>
+);
+
+const securityMechanismsItems = [
+  { type: "checkbox", title: "Security Updates", dataKey: "securityUpdates" },
+  { type: "radio", title: "Security Oversight", dataKey: "securityOversight" },
+  { type: "checkbox", title: "Access Control", dataKey: "accessControl" },
+  {
+    type: "checkbox",
+    title: "Technical Documentation",
+    dataKey: "technicalDocumentation",
+  },
+];
+
+const dataPracticesItems = [
+  {
+    type: "radio",
+    title: "Data Collection Method",
+    dataKey: "sensorDataCollectionMethod",
+  },
+  { type: "radio", title: "Sensor Type", dataKey: "sensorTypes" },
+  {
+    type: "checkbox",
+    title: "Data Collection Frequency",
+    dataKey: "dataFrequency",
+  },
+  { type: "checkbox", title: "Purpose of Collection", dataKey: "dataPurpose" },
+  { type: "checkbox", title: "Data Stored on Device", dataKey: "dataStorage" },
+  {
+    type: "radio",
+    title: "Local Data Retention",
+    dataKey: "localDataRetention",
+  },
+  {
+    type: "checkbox",
+    title: "Data Stored in Cloud",
+    dataKey: "cloudDataStorage",
+  },
+  {
+    type: "radio",
+    title: "Cloud Data Retention",
+    dataKey: "cloudDataRetention",
+  },
+  { type: "checkbox", title: "Data Shared With", dataKey: "dataSharedWith" },
+  {
+    type: "radio",
+    title: "Data Sharing Frequency",
+    dataKey: "dataSharingFrequency",
+  },
+  { type: "checkbox", title: "Data Sold To", dataKey: "dataSoldTo" },
+  {
+    type: "checkbox",
+    title: "Other Collected Data",
+    dataKey: "otherDataCollected",
+  },
+  {
+    type: "checkbox",
+    title: "Children's Data Handling",
+    dataKey: "childrensDataHandling",
+  },
+  { type: "checkbox", title: "Data Linkage", dataKey: "dataLinkage" },
+  { type: "checkbox", title: "In Compliance With", dataKey: "compliance" },
+  { type: "checkbox", title: "Data Inferences", dataKey: "dataInference" },
+];
+
+const moreInformationItems = [
+  { type: "checkbox", title: "Privacy Policy", dataKey: "privacyPolicy" },
+  {
+    type: "radio",
+    title: "Functionality Offline",
+    dataKey: "offlineFunctionality",
+  },
+  {
+    type: "checkbox",
+    title: "Functionality with No Data Processing",
+    dataKey: "noDataFunctionality",
+  },
+  {
+    type: "checkbox",
+    title: "Physical Actuations",
+    dataKey: "physicalActuations",
+  },
+];
+
+const TwoColumnSection = ({ sectionTitle, items, data }) => {
+  const leftColumnItems = items.filter((_, index) => index % 2 === 0);
+  const rightColumnItems = items.filter((_, index) => index % 2 === 1);
+
+  const renderItem = (item) => {
+    switch (item.type) {
+      case "checkbox":
+        return (
+          <CheckboxGroup
+            key={item.dataKey}
+            title={item.title}
+            selections={data[item.dataKey]}
+            dataKey={item.dataKey}
+          />
+        );
+      case "radio":
+        return (
+          <RadioField
+            key={item.dataKey}
+            title={item.title}
+            selectedValue={data[item.dataKey]}
+            dataKey={item.dataKey}
+          />
+        );
+      default:
+        return null;
+    }
+  };
 
   return (
-    <Document>
-      <Page size="A4" style={styles.page}>
-        <Text style={styles.header}>IoT Security & Privacy Label</Text>
-        <View style={styles.twoColumn}>
-          {/* LEFT COLUMN */}
-          <View style={styles.column}>
-            <View style={styles.section}>
-              <Text style={styles.h2}>Device Information</Text>
-              <Field
-                label="Manufacturer"
-                value={formData.deviceInfo.manufacturer}
-              />
-              <Field
-                label="Device Name"
-                value={formData.deviceInfo.deviceName}
-              />
-              <Field label="Model" value={formData.deviceInfo.modelNumber} />
-              <Field
-                label="Firmware"
-                value={formData.deviceInfo.firmwareVersion}
-              />
-              <Field label="Updated On" value={formData.deviceInfo.updatedOn} />
-              <Field
-                label="Manufactured In"
-                value={formData.deviceInfo.manufacturedIn}
-              />
-            </View>
-            <View style={styles.section}>
-              <Text style={styles.h2}>Security Mechanisms</Text>
-              <CheckboxGroup
-                title="Security Updates"
-                selections={formData.securityMechanisms.securityUpdates}
-                dataKey="securityUpdates"
-              />
-              <CheckboxGroup
-                title="Access Control"
-                selections={formData.securityMechanisms.accessControl}
-                dataKey="accessControl"
-              />
-              <RadioField
-                title="Security Oversight"
-                selectedValue={formData.securityMechanisms.securityOversight}
-                dataKey="securityOversight"
-              />
-              <CheckboxGroup
-                title="Technical Documentation"
-                selections={formData.securityMechanisms.technicalDocumentation}
-                dataKey="technicalDocumentation"
-              />
-            </View>
-            <View style={styles.section}>
-              <Text style={styles.h2}>More Information</Text>
-              <CheckboxGroup
-                title="Privacy Policy"
-                selections={formData.moreInformation.privacyPolicy}
-                dataKey="privacyPolicy"
-              />
-              <RadioField
-                title="Functionality Offline"
-                selectedValue={formData.moreInformation.offlineFunctionality}
-                dataKey="offlineFunctionality"
-              />
-              <CheckboxGroup
-                title="Functionality with No Data Processing"
-                selections={formData.moreInformation.noDataFunctionality}
-                dataKey="noDataFunctionality"
-              />
-              <CheckboxGroup
-                title="Physical Actuations"
-                selections={formData.moreInformation.physicalActuations}
-                dataKey="physicalActuations"
-              />
-              <TextAreaField
-                label="Compatible Platforms"
-                value={formData.moreInformation.compatiblePlatforms}
-              />
-            </View>
-          </View>
-          {/* RIGHT COLUMN */}
-          <View style={styles.column}>
-            <View style={styles.section}>
-              <Text style={styles.h2}>Data Practices</Text>
-              <RadioField
-                title="Data Collection Method"
-                selectedValue={
-                  formData.dataPractices.sensorDataCollectionMethod
-                }
-                dataKey="sensorDataCollectionMethod" // <-- FIX: Use the new key from your data file.
-              />
-              <RadioField
-                title="Sensor Type"
-                selectedValue={formData.dataPractices.sensorDataType}
-                dataKey="sensorTypes"
-              />
-              <CheckboxGroup
-                title="Data Collection Frequency"
-                selections={formData.dataPractices.dataFrequency}
-                dataKey="dataFrequency"
-              />
-              <CheckboxGroup
-                title="Purpose of Collection"
-                selections={formData.dataPractices.dataPurpose}
-                dataKey="dataPurpose"
-              />
-              <CheckboxGroup
-                title="Data Stored on Device"
-                selections={formData.dataPractices.dataStorage}
-                dataKey="dataStorage"
-              />
-              <RadioField
-                title="Local Data Retention"
-                selectedValue={formData.dataPractices.localDataRetention}
-                dataKey="localDataRetention"
-              />
-              <CheckboxGroup
-                title="Data Stored in Cloud"
-                selections={formData.dataPractices.cloudDataStorage}
-                dataKey="cloudDataStorage"
-              />
-              <RadioField
-                title="Cloud Data Retention"
-                selectedValue={formData.dataPractices.cloudDataRetention}
-                dataKey="cloudDataRetention"
-              />
-              <CheckboxGroup
-                title="Data Shared With"
-                selections={formData.dataPractices.dataSharedWith}
-                dataKey="dataSharedWith"
-              />
-              <RadioField
-                title="Data Sharing Frequency"
-                selectedValue={formData.dataPractices.dataSharingFrequency}
-                dataKey="dataSharingFrequency"
-              />
-              <CheckboxGroup
-                title="Data Sold To"
-                selections={formData.dataPractices.dataSoldTo}
-                dataKey="dataSoldTo"
-              />
-              <CheckboxGroup
-                title="Other Collected Data"
-                selections={formData.dataPractices.otherDataCollected}
-                dataKey="otherDataCollected"
-              />
-              <CheckboxGroup
-                title="Children's Data Handling"
-                selections={formData.dataPractices.childrensDataHandling}
-                dataKey="childrensDataHandling"
-              />
-              <CheckboxGroup
-                title="Data Linkage"
-                selections={formData.dataPractices.dataLinkage}
-                dataKey="dataLinkage"
-              />
-              <CheckboxGroup
-                title="In Compliance With"
-                selections={formData.dataPractices.compliance}
-                dataKey="compliance"
-              />
-              <CheckboxGroup
-                title="Data Inferences"
-                selections={formData.dataPractices.dataInference}
-                dataKey="dataInference"
-              />
-            </View>
-          </View>
-        </View>
-      </Page>
-    </Document>
+    <View style={styles.section} wrap={false}>
+      <Text style={styles.sectionTitle}>{sectionTitle}</Text>
+      <View style={styles.twoColumn}>
+        <View style={styles.column}>{leftColumnItems.map(renderItem)}</View>
+        <View style={styles.column}>{rightColumnItems.map(renderItem)}</View>
+      </View>
+    </View>
   );
 };
+
+const MoreInformationSection = ({ data }) => (
+  <View style={styles.section} wrap={false}>
+    {/* Pass an explicit title to the TwoColumnSection */}
+    <TwoColumnSection
+      sectionTitle="More Information"
+      items={moreInformationItems}
+      data={data}
+    />
+    {/* Render the full-width text area below the two-column part */}
+    <TextAreaField
+      label="Compatible Platforms"
+      value={data.compatiblePlatforms}
+    />
+  </View>
+);
+
+// --- THE MAIN PDF DOCUMENT ---
+const PdfDocument = ({ formData }) => (
+  <Document>
+    <Page size="A4" style={styles.page}>
+      <Text style={styles.header}>IoT Security & Privacy Label</Text>
+
+      <DeviceInfoSection data={formData.deviceInfo} />
+
+      <TwoColumnSection
+        sectionTitle="Security Mechanisms"
+        items={securityMechanismsItems}
+        data={formData.securityMechanisms}
+      />
+
+      <MoreInformationSection data={formData.moreInformation} />
+      <TwoColumnSection
+        sectionTitle="Data Practices"
+        items={dataPracticesItems}
+        data={formData.dataPractices}
+      />
+
+      {/* The MoreInformationSection now handles its own title */}
+    </Page>
+  </Document>
+);
 
 export default PdfDocument;

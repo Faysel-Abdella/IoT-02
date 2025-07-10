@@ -74,6 +74,7 @@ import FormModal from "./../modal/form/FormModal.js"; // Adjust the path if nece
 import PdfPreviewer from "./pdf/PdfPreviewer.js"; // Adjust path
 // import { useNavigate } from "react-router-dom";
 import { resetForm } from "../../lib/features/form/formSlice.js";
+import TooltipWrapper from "./TooltipWrapper.js";
 // import { resetForm } from "@/lib/features/form/formSlice"; // Adjust path
 
 // --- React DnD Setup ---
@@ -810,19 +811,17 @@ export default function HomePage() {
     }, {});
   }, [canvasCards]);
 
-  const renderSidebarItem = (item) => (
+  const renderSidebarItem = (item, placement) => (
     <DraggableSidebarItem key={item.id} {...item}>
-      {/* Add a wrapper for positioning the tooltip */}
-      <div className="sidebar-item-wrapper">
+      {/* Pass the placement prop down to the TooltipWrapper */}
+      <TooltipWrapper tooltipText={item.description} placement={placement}>
         <div className="list list-default" data-type={item.type} id={item.id}>
           <div className="container-icons">
             <img src={item.imgSrc} alt={item.name} className="icon-img" />
             <p>{item.name}</p>
           </div>
         </div>
-        {/* The tooltip text itself */}
-        <span className="tooltip-text">{item.description}</span>
-      </div>
+      </TooltipWrapper>
     </DraggableSidebarItem>
   );
 
@@ -1288,7 +1287,9 @@ export default function HomePage() {
         </div>
         {isUsersOpen && (
           <div className="user-container contt">
-            {sidebarItems.users.map(renderSidebarItem)}
+            {sidebarItems.users.map((item) =>
+              renderSidebarItem(item, "bottom")
+            )}
           </div>
         )}
         <div
