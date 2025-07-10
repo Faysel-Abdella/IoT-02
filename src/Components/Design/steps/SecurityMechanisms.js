@@ -140,36 +140,41 @@ const SecurityMechanisms = ({ formData, updateFormData }) => {
             Clear Selection
           </button>
         </h3>
-        <p class="title-description">
+        {/* FIX: Changed 'class' to the correct JSX 'className' */}
+        <p className="title-description">
           Audits performed by internal and third-party security auditors.
         </p>
 
         <div className="radio-list">
+          {/* The destructuring is already correct here, which is great! */}
           {securityData.securityOversight.map(
             ({ value, label, color, description }) => {
               const isChecked = formData.securityOversight === value;
               return (
-                // This container is for the tooltip
                 <div key={value} className="tooltip-container">
-                  {/* This label is the main clickable row */}
-                  <label className="radio-label">
-                    {/* Item 1: The always-visible radio input */}
-                    <input
-                      type="radio"
-                      name="securityOversight"
-                      value={value}
-                      checked={isChecked}
-                      onChange={() =>
-                        handleRadioChange("securityOversight", value)
-                      }
-                    />
+                  {/* The input is now a sibling, placed before the label */}
+                  <input
+                    type="radio"
+                    // A unique ID for this specific input (so = security oversight)
+                    id={`radio-so-${value}`}
+                    // The name groups these radios together
+                    name="securityOversight"
+                    value={value}
+                    checked={isChecked}
+                    onChange={() =>
+                      handleRadioChange("securityOversight", value)
+                    }
+                    // Visually hide the default radio button
+                    style={{ display: "none" }}
+                  />
 
-                    {/* Item 2: A div to hold the text and circle */}
+                  {/* The label now uses 'htmlFor' to connect to the input */}
+                  <label htmlFor={`radio-so-${value}`} className="radio-label">
                     <div className="label-content">
                       <span className="radio-text">{label}</span>
-                      {/* <ColorCircle color={color} isChecked={isChecked} /> */}
                     </div>
                   </label>
+
                   <span className="tooltip-text">{description}</span>
                 </div>
               );

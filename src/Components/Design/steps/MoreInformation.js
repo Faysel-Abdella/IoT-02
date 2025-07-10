@@ -86,40 +86,60 @@ const MoreInformation = ({ formData, updateFormData }) => {
 
       <div className="form-section">
         <h3 className="section-title">Functionality when offline</h3>
+        {/* FIX: Changed 'class' to the correct JSX 'className' */}
+        <p className="title-description">
+          {" "}
+          How the device is expected to function when no internet is available
+        </p>
+
         <div className="radio-list">
-          {MoreInformationsData.offlineFunctionality.map((option) => {
-            // Check if the single value in formData matches this option
-            const isChecked = formData.offlineFunctionality === option.value;
-            return (
-              <div key={option.value} className="tooltip-container">
-                <label className="radio-label">
+          {/* Using the clean, destructured parameters as requested */}
+          {MoreInformationsData.offlineFunctionality.map(
+            ({ value, label, description }) => {
+              const isChecked = formData.offlineFunctionality === value;
+
+              return (
+                <div key={value} className="tooltip-container">
+                  {/* The input is now a sibling, placed before the label */}
                   <input
                     type="radio"
-                    // The 'name' must be the same for all options in this group
+                    // A unique ID for this specific input (of = offline functionality)
+                    id={`radio-of-${value}`}
+                    // The name groups these radios together
                     name="offlineFunctionality"
-                    value={option.value}
+                    value={value}
                     checked={isChecked}
-                    // Use the new radio change handler
                     onChange={() =>
-                      handleRadioChange("offlineFunctionality", option.value)
+                      handleRadioChange("offlineFunctionality", value)
                     }
+                    // Visually hide the default radio button
+                    style={{ display: "none" }}
                   />
-                  <div className="label-content">
-                    <span className="radio-text">{option.label}</span>
-                    {/* <ColorCircle color={option.color} isChecked={isChecked} /> */}
-                  </div>
-                </label>
-                {option.description !== "" && (
-                  <span className="tooltip-text">{option.description}</span>
-                )}
-              </div>
-            );
-          })}
+
+                  {/* The label now uses 'htmlFor' to connect to the input */}
+                  <label htmlFor={`radio-of-${value}`} className="radio-label">
+                    <div className="label-content">
+                      <span className="radio-text">{label}</span>
+                    </div>
+                  </label>
+
+                  {/* The tooltip remains unchanged */}
+                  {description && description !== "" && (
+                    <span className="tooltip-text">{description}</span>
+                  )}
+                </div>
+              );
+            }
+          )}
         </div>
       </div>
 
       <div className="form-section">
         <h3 className="section-title">Functionality with No Data Processing</h3>
+        <p class="title-description">
+          How the device is expected to function when data is not being
+          processed
+        </p>
         <div className="checkbox-list">
           {MoreInformationsData.noDataFunctionality.map((option) => {
             // We use a new state field 'noDataFunctionality'
@@ -159,7 +179,7 @@ const MoreInformation = ({ formData, updateFormData }) => {
           How the device is expected to behave in response to triggers
         </p>
 
-        <div className="form-group">
+        {/* <div className="form-group">
           <textarea
             className="form-textarea"
             rows="4"
@@ -170,7 +190,7 @@ const MoreInformation = ({ formData, updateFormData }) => {
               handleInputChange("compatiblePlatforms", e.target.value)
             }
           />
-        </div>
+        </div> */}
         <div className="checkbox-list">
           {MoreInformationsData.physicalActuations.map((option) => {
             // We use a new state field 'physicalActuations'

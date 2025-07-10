@@ -1,67 +1,69 @@
 export const dataPracticesData = {
-  sensorData: [
+  sensorDataCollectionMethod: [
     {
-      value: "VISUAL",
+      value: "visual",
       label: "Visual",
-      description: "Device can collect visual data.",
+      description: "Device can collect visual data (e.g., video, still image).",
       color: "#F44336", // Red
-      // Nested checkbox options
-      subItems: [{ value: "CAMERA", label: "Camera" }],
     },
     {
-      value: "AUDIO",
+      value: "audio",
       label: "Audio",
-      description: "Device can collect audio data.",
+      description: "Device can collect audio.",
       color: "#F44336", // Red
-      subItems: [{ value: "MICROPHONE", label: "Microphone" }],
     },
     {
-      value: "POSITION",
+      value: "position",
       label: "Position",
       description:
         "Device can measure the exact location of an object or its relative position.",
       color: "#F44336", // Red
-      subItems: [{ value: "GPS_SENSOR", label: "GPS sensor" }],
     },
     {
-      value: "TEMPERATURE",
+      value: "temperature",
       label: "Temperature",
-      description: "Device can measure temperature.",
+      description: "Device can sense the ambient temperature.",
       color: "#4CAF50", // Green
-      subItems: [{ value: "TEMPERATURE_SENSOR", label: "Temperature sensor" }],
     },
     {
-      value: "HUMIDITY",
+      value: "humidity",
       label: "Humidity",
       description:
-        "Device can detect the humidity to measure the amount of water in the air.",
+        "Device can detect humidity to measure the amount of water in the air.",
       color: "#4CAF50", // Green
-      subItems: [{ value: "HUMIDITY_SENSOR", label: "Humidity sensor" }],
     },
     {
-      value: "LIGHT",
+      value: "light",
       label: "Light",
       description: "Device can detect the amount of light.",
       color: "#4CAF50", // Green
-      subItems: [
-        { value: "AMBIENT_LIGHT_SENSOR", label: "Ambient light sensor" },
-      ],
     },
+
     {
-      value: "PRESENCE",
+      value: "presence",
       label: "Presence",
-      description: "Device can sense pressure or proximity.",
+      description: "Device can sense the pressure.",
       color: "#FFC107", // Yellow
-      subItems: [{ value: "PROXIMITY_SENSOR", label: "Proximity sensor" }],
     },
     {
-      value: "DISTANCE",
+      value: "distance",
       label: "Distance",
       description:
-        "Device can sense ultrasonic sound waves to measure the distance to an object.",
+        "Device can sense ultrasonic sound waves to measure the distance to an object",
       color: "#4CAF50", // Green
-      subItems: [{ value: "ULTRASONIC_SENSOR", label: "Ultrasonic sensor" }],
     },
+  ],
+
+  // --- Data for the SECOND dropdown ---
+  sensorTypes: [
+    { value: "camera", label: "Camera" },
+    { value: "microphone", label: "Microphone" },
+    { value: "gps_sensor", label: "GPS sensor" },
+    { value: "temperature_sensor", label: "Temperature sensor" },
+    { value: "humidity_sensor", label: "Humidity sensor" },
+    { value: "ambient_light_sensor", label: "Ambient light sensor" },
+    { value: "proximity", label: "Proximity" },
+    { value: "ultrasonic", label: "Ultrasonic" },
   ],
   // ADD THE NEW DATA FOR FREQUENCY
   dataFrequency: [

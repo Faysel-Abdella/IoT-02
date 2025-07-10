@@ -17,7 +17,8 @@ const initialState = {
     technicalDocumentation: [],
   },
   dataPractices: {
-    sensorDataCollection: {},
+    sensorDataCollectionMethod: "", // <-- ADDED for the first dropdown
+    sensorDataType: "",
     dataFrequency: [],
     dataPurpose: [],
     dataStorage: [],

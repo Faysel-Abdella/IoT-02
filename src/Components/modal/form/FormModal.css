@@ -41,6 +41,7 @@
   align-items: center;
   justify-content: center;
   line-height: 1;
+  z-index: 40;
 }
 
 .modal-close-button:hover {
