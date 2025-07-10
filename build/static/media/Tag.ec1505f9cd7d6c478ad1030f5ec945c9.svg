@@ -1,0 +1,25 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Tag base shape -->
+  <path d="M 10,35 
+           L 35,10 
+           C 38,7 42,7 45,10 
+           L 85,50 
+           C 88,53 88,57 85,60 
+           L 45,90 
+           C 42,93 38,93 35,90 
+           L 10,65 
+           C 7,62 7,58 10,55 
+           Z" 
+        fill="#48CFAD" stroke="#37BC9B" stroke-width="2"/>
+  
+  <!-- Hole for tag -->
+  <circle cx="30" cy="30" r="8" fill="#FFFFFF" stroke="#37BC9B" stroke-width="2"/>
+  
+  <!-- Tag label lines (simplified for icon) -->
+  <line x1="35" y1="50" x2="75" y2="50" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+  <line x1="35" y1="60" x2="65" y2="60" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+  <line x1="35" y1="70" x2="55" y2="70" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Small dot to indicate active tag -->
+  <circle cx="75" cy="30" r="6" fill="#ED5565"/>
+</svg>

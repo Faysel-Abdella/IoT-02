@@ -1,154 +1,77 @@
 "use client";
 
 import { dataPracticesData } from "./data/dataPracticesData.js";
+import CustomSelect from "../CustomSelect.js";
 
 // We can reuse the same smart ColorCircle component from SecurityMechanisms
-const ColorCircle = ({ color, isChecked }) => {
-  if (!color) return null;
-  let finalColor;
-  let isAlwaysFilled = false;
-  if (typeof color === "object" && color.checked && color.unchecked) {
-    finalColor = isChecked ? color.checked : color.unchecked;
-    isAlwaysFilled = true;
-  } else {
-    finalColor = color;
-  }
-  return (
-    <span
-      className="color-indicator"
-      style={{
-        borderColor: finalColor,
-        backgroundColor:
-          isAlwaysFilled || isChecked ? finalColor : "transparent",
-      }}
-    />
-  );
-};
+// const ColorCircle = ({ color, isChecked }) => {
+//   if (!color) return null;
+//   let finalColor;
+//   let isAlwaysFilled = false;
+//   if (typeof color === "object" && color.checked && color.unchecked) {
+//     finalColor = isChecked ? color.checked : color.unchecked;
+//     isAlwaysFilled = true;
+//   } else {
+//     finalColor = color;
+//   }
+//   return (
+//     <span
+//       className="color-indicator"
+//       style={{
+//         borderColor: finalColor,
+//         backgroundColor:
+//           isAlwaysFilled || isChecked ? finalColor : "transparent",
+//       }}
+//     />
+//   );
+// };
 
 const DataPractices = ({ formData, updateFormData }) => {
-  const handleParentChange = (parentValue) => {
-    const currentSelections = formData.sensorDataCollection || {};
-    const newSelections = { ...currentSelections };
+  const parentKey = "dataPractices";
 
-    // If the parent is already checked, we uncheck it by deleting it.
-    if (newSelections[parentValue]) {
-      delete newSelections[parentValue];
-    } else {
-      // Otherwise, we check it by adding it with an empty array for its children.
-      newSelections[parentValue] = [];
-    }
-    updateFormData("dataPractices", "sensorDataCollection", newSelections);
-  };
-
-  const handleChildChange = (parentValue, childValue) => {
-    const currentSelections = formData.sensorDataCollection || {};
-    const newSelections = { ...currentSelections };
-
-    const currentChildren = newSelections[parentValue] || [];
-    const childIndex = currentChildren.indexOf(childValue);
-
-    if (childIndex > -1) {
-      // If child is already selected, remove it
-      newSelections[parentValue] = currentChildren.filter(
-        (c) => c !== childValue
-      );
-    } else {
-      // Otherwise, add it
-      newSelections[parentValue] = [...currentChildren, childValue];
-    }
-    updateFormData("dataPractices", "sensorDataCollection", newSelections);
-  };
-
-  // REMOVE the handleRadioChange function and REPLACE it with this:
   const handleCheckboxChange = (field, value) => {
-    // Get the current array of selections for this field, or an empty array
     const currentValues = formData[field] || [];
-
-    // Check if the value is already in the array
     const updatedValues = currentValues.includes(value)
-      ? // If it is, remove it (uncheck)
-        currentValues.filter((item) => item !== value)
-      : // If it's not, add it (check)
-        [...currentValues, value];
-
-    // Update the form state
-    updateFormData("dataPractices", field, updatedValues);
+      ? currentValues.filter((item) => item !== value)
+      : [...currentValues, value];
+    // Call with the variable
+    updateFormData(parentKey, field, updatedValues);
   };
 
   const handleRadioChange = (field, value) => {
-    updateFormData("dataPractices", field, value);
+    // Call with the variable
+    updateFormData(parentKey, field, value);
   };
   return (
     <div className="step-content">
       <h2 className="step-title">Data Practices</h2>
       {/* Sensor Data Collection Section */}
       <div className="form-section">
-        <h3 className="section-title">Sensor data collection</h3>
-        <div className="checkbox-list">
-          {dataPracticesData.sensorData.map((parentOption) => {
-            const isParentChecked = !!(formData.sensorDataCollection || {})[
-              parentOption.value
-            ];
+        <h3 className="section-title">Data Collection Method</h3>
+        <div className="dropdown-wrapper">
+          {/* REPLACED <select> with CustomSelect */}
+          <CustomSelect
+            placeholder="Select a method..."
+            options={dataPracticesData.sensorDataCollectionMethod}
+            value={formData.sensorDataCollectionMethod || ""}
+            onChange={(value) =>
+              handleRadioChange("sensorDataCollectionMethod", value)
+            }
+          />
+        </div>
+      </div>
 
-            return (
-              <div key={parentOption.value} className="parent-checkbox-group">
-                <div className="tooltip-container">
-                  <label className="checkbox-label">
-                    <input
-                      type="checkbox"
-                      checked={isParentChecked}
-                      onChange={() => handleParentChange(parentOption.value)}
-                    />
-                    <div className="label-content">
-                      <span className="checkbox-text">
-                        {parentOption.label}
-                      </span>
-                      <ColorCircle
-                        color={parentOption.color}
-                        isChecked={isParentChecked}
-                      />
-                    </div>
-                  </label>
-                  <span className="tooltip-text">
-                    {parentOption.description}
-                  </span>
-                </div>
-
-                {/* --- NESTED CHECKBOXES RENDERED HERE --- */}
-                {isParentChecked && parentOption.subItems && (
-                  <div className="nested-checkbox-list">
-                    {parentOption.subItems.map((childOption) => {
-                      const isChildChecked = (
-                        (formData.sensorDataCollection || {})[
-                          parentOption.value
-                        ] || []
-                      ).includes(childOption.value);
-                      return (
-                        <label
-                          key={childOption.value}
-                          className="checkbox-label nested-label"
-                        >
-                          <input
-                            type="checkbox"
-                            checked={isChildChecked}
-                            onChange={() =>
-                              handleChildChange(
-                                parentOption.value,
-                                childOption.value
-                              )
-                            }
-                          />
-                          <span className="checkbox-text">
-                            {childOption.label}
-                          </span>
-                        </label>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
-            );
-          })}
+      {/* --- SENSOR TYPE DROPDOWN SECTION --- */}
+      <div className="form-section">
+        <h3 className="section-title">Sensor Type</h3>
+        <div className="dropdown-wrapper">
+          {/* REPLACED <select> with CustomSelect */}
+          <CustomSelect
+            placeholder="Select a sensor type..."
+            options={dataPracticesData.sensorTypes}
+            value={formData.sensorDataType || ""}
+            onChange={(value) => handleRadioChange("sensorDataType", value)}
+          />
         </div>
       </div>
       {/* ======================================================= */}
@@ -156,6 +79,9 @@ const DataPractices = ({ formData, updateFormData }) => {
       {/* ======================================================= */}
       <div className="form-section">
         <h3 className="section-title">Data Collection Frequency</h3>
+        <p class="title-description">
+          How frequent user's data is being shared{" "}
+        </p>
         {/* Use checkbox-list for styling consistency */}
         <div className="checkbox-list">
           {dataPracticesData.dataFrequency.map((option) => {
@@ -180,7 +106,7 @@ const DataPractices = ({ formData, updateFormData }) => {
                   <div className="label-content">
                     <span className="checkbox-text">{option.label}</span>{" "}
                     {/* Use checkbox-text class */}
-                    <ColorCircle color={option.color} isChecked={isChecked} />
+                    {/* <ColorCircle color={option.color} isChecked={isChecked} /> */}
                   </div>
                 </label>
                 <span className="tooltip-text">{option.description}</span>
@@ -194,6 +120,7 @@ const DataPractices = ({ formData, updateFormData }) => {
       {/* ======================================================= */}
       <div className="form-section">
         <h3 className="section-title">Purpose of Data Collection</h3>
+        <p class="title-description">The purpose of data collection </p>
         <div className="checkbox-list">
           {dataPracticesData.dataPurpose.map((option) => {
             const isChecked = (formData.dataPurpose || []).includes(
@@ -212,7 +139,7 @@ const DataPractices = ({ formData, updateFormData }) => {
                   />
                   <div className="label-content">
                     <span className="checkbox-text">{option.label}</span>
-                    <ColorCircle color={option.color} isChecked={isChecked} />
+                    {/* <ColorCircle color={option.color} isChecked={isChecked} /> */}
                   </div>
                 </label>
                 {option.description !== "" && (
@@ -246,7 +173,7 @@ const DataPractices = ({ formData, updateFormData }) => {
                   />
                   <div className="label-content">
                     <span className="checkbox-text">{option.label}</span>
-                    <ColorCircle color={option.color} isChecked={isChecked} />
+                    {/* <ColorCircle color={option.color} isChecked={isChecked} /> */}
                   </div>
                 </label>
                 <span className="tooltip-text">{option.description}</span>
@@ -258,38 +185,56 @@ const DataPractices = ({ formData, updateFormData }) => {
 
       <div className="form-section">
         <h3 className="section-title">Local Data Retention Time</h3>
+        {/* FIX: Changed 'class' to the correct JSX 'className' */}
+        <p className="title-description">
+          For how long data will be stored on the device{" "}
+        </p>
+
         <div className="radio-list">
-          {dataPracticesData.localDataRetention.map((option) => {
-            // Check if the single value in formData matches this option
-            const isChecked = formData.localDataRetention === option.value;
-            return (
-              <div key={option.value} className="tooltip-container">
-                <label className="radio-label">
+          {/* Using the clean, destructured parameters */}
+          {dataPracticesData.localDataRetention.map(
+            ({ value, label, description }) => {
+              const isChecked = formData.localDataRetention === value;
+
+              return (
+                <div key={value} className="tooltip-container">
+                  {/* The input is now a sibling, placed before the label */}
                   <input
                     type="radio"
-                    // The 'name' must be the same for all options in this group
+                    // A unique ID for this specific input (ldr = Local Data Retention)
+                    id={`radio-ldr-${value}`}
+                    // The name groups these radios together
                     name="localDataRetention"
-                    value={option.value}
+                    value={value}
                     checked={isChecked}
-                    // Use the new radio change handler
                     onChange={() =>
-                      handleRadioChange("localDataRetention", option.value)
+                      handleRadioChange("localDataRetention", value)
                     }
+                    // Visually hide the default radio button
+                    style={{ display: "none" }}
                   />
-                  <div className="label-content">
-                    <span className="radio-text">{option.label}</span>
-                    <ColorCircle color={option.color} isChecked={isChecked} />
-                  </div>
-                </label>
-                <span className="tooltip-text">{option.description}</span>
-              </div>
-            );
-          })}
+
+                  {/* The label now uses 'htmlFor' to connect to the input */}
+                  <label htmlFor={`radio-ldr-${value}`} className="radio-label">
+                    <div className="label-content">
+                      <span className="radio-text">{label}</span>
+                    </div>
+                  </label>
+
+                  <span className="tooltip-text">{description}</span>
+                </div>
+              );
+            }
+          )}
         </div>
       </div>
 
       <div className="form-section">
         <h3 className="section-title">Data Stored in the Cloud</h3>
+        <p class="title-description">
+          Whether user's identity could be revealed by the data stored in the
+          cloud
+        </p>
         <div className="checkbox-list">
           {dataPracticesData.cloudDataStorage.map((option) => {
             // We use a new state field 'cloudDataStorage'
@@ -310,7 +255,7 @@ const DataPractices = ({ formData, updateFormData }) => {
                   />
                   <div className="label-content">
                     <span className="checkbox-text">{option.label}</span>
-                    <ColorCircle color={option.color} isChecked={isChecked} />
+                    {/* <ColorCircle color={option.color} isChecked={isChecked} /> */}
                   </div>
                 </label>
                 {option.description !== "" && (
@@ -324,38 +269,54 @@ const DataPractices = ({ formData, updateFormData }) => {
 
       <div className="form-section">
         <h3 className="section-title">Cloud Data Retention Time</h3>
+
+        {/* BONUS FIX: Corrected description and used 'className' instead of 'class' */}
+        <p className="title-description">
+          For how long data will be stored in the cloud
+        </p>
+
         <div className="radio-list">
-          {dataPracticesData.cloudDataRetention.map((option) => {
-            // Check if the single value in formData matches this option
-            const isChecked = formData.cloudDataRetention === option.value;
-            return (
-              <div key={option.value} className="tooltip-container">
-                <label className="radio-label">
+          {/* Using the clean, destructured parameters as requested */}
+          {dataPracticesData.cloudDataRetention.map(
+            ({ value, label, description }) => {
+              const isChecked = formData.cloudDataRetention === value;
+
+              return (
+                <div key={value} className="tooltip-container">
+                  {/* The input is now a sibling, placed before the label */}
                   <input
                     type="radio"
-                    // The 'name' must be the same for all options in this group
+                    // A unique ID for this specific input
+                    id={`radio-cdr-${value}`}
+                    // The name groups these radios together
                     name="cloudDataRetention"
-                    value={option.value}
+                    value={value}
                     checked={isChecked}
-                    // Use the existing radio change handler
                     onChange={() =>
-                      handleRadioChange("cloudDataRetention", option.value)
+                      handleRadioChange("cloudDataRetention", value)
                     }
+                    // Visually hide the default radio button
+                    style={{ display: "none" }}
                   />
-                  <div className="label-content">
-                    <span className="radio-text">{option.label}</span>
-                    <ColorCircle color={option.color} isChecked={isChecked} />
-                  </div>
-                </label>
-                <span className="tooltip-text">{option.description}</span>
-              </div>
-            );
-          })}
+
+                  {/* The label now uses 'htmlFor' to connect to the input */}
+                  <label htmlFor={`radio-cdr-${value}`} className="radio-label">
+                    <div className="label-content">
+                      <span className="radio-text">{label}</span>
+                    </div>
+                  </label>
+
+                  <span className="tooltip-text">{description}</span>
+                </div>
+              );
+            }
+          )}
         </div>
       </div>
 
       <div className="form-section">
         <h3 className="section-title">Data shared with:</h3>
+        <p class="title-description"> Who user's data will be shared with</p>
         <div className="checkbox-list">
           {dataPracticesData.dataSharedWith.map((option) => {
             // We use a new state field 'dataSharedWith'
@@ -376,7 +337,7 @@ const DataPractices = ({ formData, updateFormData }) => {
                   />
                   <div className="label-content">
                     <span className="checkbox-text">{option.label}</span>
-                    <ColorCircle color={option.color} isChecked={isChecked} />
+                    {/* <ColorCircle color={option.color} isChecked={isChecked} /> */}
                   </div>
                 </label>
                 <span className="tooltip-text">{option.description}</span>
@@ -388,33 +349,39 @@ const DataPractices = ({ formData, updateFormData }) => {
 
       <div className="form-section">
         <h3 className="section-title">Data sharing frequency</h3>
+
+        <p class="title-description">
+          {" "}
+          How frequent user's data is being shared
+        </p>
+
         <div className="radio-list">
-          {dataPracticesData.dataSharingFrequency.map((option) => {
-            // Check if the single value in formData matches this option
-            const isChecked = formData.dataSharingFrequency === option.value;
-            return (
-              <div key={option.value} className="tooltip-container">
-                <label className="radio-label">
+          {dataPracticesData.dataSharingFrequency.map(
+            ({ value, label, description }) => {
+              const isChecked = formData.dataSharingFrequency === value;
+              return (
+                <div key={value} className="tooltip-container">
                   <input
                     type="radio"
-                    // The 'name' must be the same for all options in this group
+                    id={`radio-dsf-${value}`}
                     name="dataSharingFrequency"
-                    value={option.value}
+                    value={value}
                     checked={isChecked}
-                    // Use the existing radio change handler
                     onChange={() =>
-                      handleRadioChange("dataSharingFrequency", option.value)
+                      handleRadioChange("dataSharingFrequency", value)
                     }
+                    style={{ display: "none" }}
                   />
-                  <div className="label-content">
-                    <span className="radio-text">{option.label}</span>
-                    <ColorCircle color={option.color} isChecked={isChecked} />
-                  </div>
-                </label>
-                <span className="tooltip-text">{option.description}</span>
-              </div>
-            );
-          })}
+                  <label htmlFor={`radio-dsf-${value}`} className="radio-label">
+                    <div className="label-content">
+                      <span className="radio-text">{label}</span>
+                    </div>
+                  </label>
+                  <span className="tooltip-text">{description}</span>
+                </div>
+              );
+            }
+          )}
         </div>
       </div>
 
@@ -440,7 +407,7 @@ const DataPractices = ({ formData, updateFormData }) => {
                   />
                   <div className="label-content">
                     <span className="checkbox-text">{option.label}</span>
-                    <ColorCircle color={option.color} isChecked={isChecked} />
+                    {/* <ColorCircle color={option.color} isChecked={isChecked} /> */}
                   </div>
                 </label>
                 {option.description !== "" && (
@@ -474,7 +441,7 @@ const DataPractices = ({ formData, updateFormData }) => {
                   />
                   <div className="label-content">
                     <span className="checkbox-text">{option.label}</span>
-                    <ColorCircle color={option.color} isChecked={isChecked} />
+                    {/* <ColorCircle color={option.color} isChecked={isChecked} /> */}
                   </div>
                 </label>
                 <span className="tooltip-text">{option.description}</span>
@@ -512,7 +479,7 @@ const DataPractices = ({ formData, updateFormData }) => {
                   />
                   <div className="label-content">
                     <span className="checkbox-text">{option.label}</span>
-                    <ColorCircle color={option.color} isChecked={isChecked} />
+                    {/* <ColorCircle color={option.color} isChecked={isChecked} /> */}
                   </div>
                 </label>
                 <span className="tooltip-text">{option.description}</span>
@@ -543,7 +510,7 @@ const DataPractices = ({ formData, updateFormData }) => {
                   />
                   <div className="label-content">
                     <span className="checkbox-text">{option.label}</span>
-                    <ColorCircle color={option.color} isChecked={isChecked} />
+                    {/* <ColorCircle color={option.color} isChecked={isChecked} /> */}
                   </div>
                 </label>
                 {/* This span will only render if a description exists */}
@@ -578,7 +545,7 @@ const DataPractices = ({ formData, updateFormData }) => {
                   <div className="label-content">
                     <span className="checkbox-text">{option.label}</span>
                     {/* This component will now automatically show Red when unchecked and Green when checked */}
-                    <ColorCircle color={option.color} isChecked={isChecked} />
+                    {/* <ColorCircle color={option.color} isChecked={isChecked} /> */}
                   </div>
                 </label>
                 <span className="tooltip-text">{option.description}</span>
@@ -612,7 +579,7 @@ const DataPractices = ({ formData, updateFormData }) => {
                   />
                   <div className="label-content">
                     <span className="checkbox-text">{option.label}</span>
-                    <ColorCircle color={option.color} isChecked={isChecked} />
+                    {/* <ColorCircle color={option.color} isChecked={isChecked} /> */}
                   </div>
                 </label>
                 {option.description !== "" && (
