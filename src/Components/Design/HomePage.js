@@ -13,7 +13,7 @@ import {
   FaChevronDown,
   FaChevronRight,
   FaDownload,
-  FaFilePdf,
+  // FaFilePdf,
 } from "react-icons/fa";
 
 // --- All image imports ---
@@ -22,8 +22,8 @@ import ControllerImg from "./Images/users/Controller.png";
 import DataprocessorImg from "./Images/users/Dataprocessor.png";
 import MicroImg from "./Images/Devices/Micro.png";
 import batteryImg from "./Images/Devices/battery.png";
-import hubImg from "./Images/Devices/hub.png";
-import CameraModelImg from "./Images/Devices/CameraModel.svg";
+// import hubImg from "./Images/Devices/hub.png";
+// import CameraModelImg from "./Images/Devices/CameraModel.svg";
 import PowerImg from "./Images/Devices/Power.svg";
 import bluetoothImg from "./Images/Connectivity/bluetooth.png";
 import wifiImg from "./Images/Connectivity/wifi.png";
@@ -56,12 +56,12 @@ import UltraImg from "./Images/Sensors/ultrasonic.png";
 import LaserImage from "./Images/Sensors/laser.png";
 import smartPhoneImg from "./Images/UserInterface/SmartPhone.png";
 import dashboardImg from "./Images/UserInterface/dashboard.png";
-import log from "./Images/log.png";
+// import log from "./Images/log.png";
 // --- End of image imports ---
 
 import Swal from "sweetalert2";
-import StarRating from "./StarRating";
-import InteractionLog from "./InteractionLog";
+// import StarRating from "./StarRating";
+// import InteractionLog from "./InteractionLog";
 import { useDispatch } from "react-redux";
 import { initialData } from "../constant/constant.js";
 import { BiPlus } from "react-icons/bi";
@@ -72,7 +72,7 @@ import { useDrag, useDrop } from "react-dnd";
 import MultiStepForm from "./MultiStepForm.js";
 import FormModal from "./../modal/form/FormModal.js"; // Adjust the path if necessary
 import PdfPreviewer from "./pdf/PdfPreviewer.js"; // Adjust path
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { resetForm } from "../../lib/features/form/formSlice.js";
 // import { resetForm } from "@/lib/features/form/formSlice"; // Adjust path
 
@@ -202,7 +202,6 @@ export default function HomePage() {
   const [isinterfaceOpen, setInterfaceOpen] = useState(false);
   const [isPrivacyOpen, setPrivacyOpen] = useState(false);
   const [isMultiStepFormOpen, setIsMultiStepFormOpen] = useState(false);
-  const navigate = useNavigate();
 
   // ... your other states
 
@@ -793,15 +792,15 @@ export default function HomePage() {
       newInteraction,
     ]);
   };
-  const handleStarClick = (rating, userType) =>
-    logInteraction("star-rating", rating, userType);
+  // const handleStarClick = (rating, userType) =>
+  //   logInteraction("star-rating", rating, userType);
   const handleLearnMoreClick = (userType) =>
     logInteraction("learn-more", null, userType);
   const handleCloseClick = (userType) => {
     logInteraction("close", null, userType);
     setShowPopup(false);
   };
-  const toggleInteractionLog = () => setShowInteractionLog(!showInteractionLog);
+  // const toggleInteractionLog = () => setShowInteractionLog(!showInteractionLog);
 
   const droppedItems = React.useMemo(() => {
     return canvasCards.reduce((acc, card) => {

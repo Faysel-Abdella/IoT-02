@@ -3,27 +3,27 @@
 import { MoreInformationsData } from "./data/MoreInforrmationsData";
 
 // We can reuse the same smart ColorCircle component
-const ColorCircle = ({ color, isChecked }) => {
-  if (!color) return null;
-  let finalColor;
-  let isAlwaysFilled = false;
-  if (typeof color === "object" && color.checked && color.unchecked) {
-    finalColor = isChecked ? color.checked : color.unchecked;
-    isAlwaysFilled = true;
-  } else {
-    finalColor = color;
-  }
-  return (
-    <span
-      className="color-indicator"
-      style={{
-        borderColor: finalColor,
-        backgroundColor:
-          isAlwaysFilled || isChecked ? finalColor : "transparent",
-      }}
-    />
-  );
-};
+// const ColorCircle = ({ color, isChecked }) => {
+//   if (!color) return null;
+//   let finalColor;
+//   let isAlwaysFilled = false;
+//   if (typeof color === "object" && color.checked && color.unchecked) {
+//     finalColor = isChecked ? color.checked : color.unchecked;
+//     isAlwaysFilled = true;
+//   } else {
+//     finalColor = color;
+//   }
+//   return (
+//     <span
+//       className="color-indicator"
+//       style={{
+//         borderColor: finalColor,
+//         backgroundColor:
+//           isAlwaysFilled || isChecked ? finalColor : "transparent",
+//       }}
+//     />
+//   );
+// };
 
 const MoreInformation = ({ formData, updateFormData }) => {
   // This component manages its own checkbox changes

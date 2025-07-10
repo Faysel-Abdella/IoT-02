@@ -6,37 +6,37 @@ import { securityData } from "./data/SecurityMechanismsData";
 // A simple, reusable component for our colored circle.
 // It now receives the color directly, making it much simpler.
 // REPLACE your existing ColorCircle component with this one
-const ColorCircle = ({ color, isChecked }) => {
-  // If no color data is provided for this option, render nothing.
-  if (!color) {
-    return null;
-  }
+// const ColorCircle = ({ color, isChecked }) => {
+//   // If no color data is provided for this option, render nothing.
+//   if (!color) {
+//     return null;
+//   }
 
-  let finalColor;
-  let isAlwaysFilled = false;
+//   let finalColor;
+//   let isAlwaysFilled = false;
 
-  // Check if the color data is an object (for our new two-state system)
-  if (typeof color === "object" && color.checked && color.unchecked) {
-    finalColor = isChecked ? color.checked : color.unchecked;
-    isAlwaysFilled = true; // This type of circle is always filled, just with different colors.
-  } else {
-    // Otherwise, use the old system (a simple color string)
-    finalColor = color;
-  }
+//   // Check if the color data is an object (for our new two-state system)
+//   if (typeof color === "object" && color.checked && color.unchecked) {
+//     finalColor = isChecked ? color.checked : color.unchecked;
+//     isAlwaysFilled = true; // This type of circle is always filled, just with different colors.
+//   } else {
+//     // Otherwise, use the old system (a simple color string)
+//     finalColor = color;
+//   }
 
-  return (
-    <span
-      className="color-indicator"
-      style={{
-        // The border is always the determined color
-        borderColor: finalColor,
-        // The background fills based on the system type
-        backgroundColor:
-          isAlwaysFilled || isChecked ? finalColor : "transparent",
-      }}
-    />
-  );
-};
+//   return (
+//     <span
+//       className="color-indicator"
+//       style={{
+//         // The border is always the determined color
+//         borderColor: finalColor,
+//         // The background fills based on the system type
+//         backgroundColor:
+//           isAlwaysFilled || isChecked ? finalColor : "transparent",
+//       }}
+//     />
+//   );
+// };
 
 const SecurityMechanisms = ({ formData, updateFormData }) => {
   // These handler functions remain exactly the same. No changes needed.

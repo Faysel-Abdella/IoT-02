@@ -1,31 +1,30 @@
 "use client";
 
-import { useMemo } from "react";
 import { dataPracticesData } from "./data/dataPracticesData.js";
 import CustomSelect from "../CustomSelect.js";
 
 // We can reuse the same smart ColorCircle component from SecurityMechanisms
-const ColorCircle = ({ color, isChecked }) => {
-  if (!color) return null;
-  let finalColor;
-  let isAlwaysFilled = false;
-  if (typeof color === "object" && color.checked && color.unchecked) {
-    finalColor = isChecked ? color.checked : color.unchecked;
-    isAlwaysFilled = true;
-  } else {
-    finalColor = color;
-  }
-  return (
-    <span
-      className="color-indicator"
-      style={{
-        borderColor: finalColor,
-        backgroundColor:
-          isAlwaysFilled || isChecked ? finalColor : "transparent",
-      }}
-    />
-  );
-};
+// const ColorCircle = ({ color, isChecked }) => {
+//   if (!color) return null;
+//   let finalColor;
+//   let isAlwaysFilled = false;
+//   if (typeof color === "object" && color.checked && color.unchecked) {
+//     finalColor = isChecked ? color.checked : color.unchecked;
+//     isAlwaysFilled = true;
+//   } else {
+//     finalColor = color;
+//   }
+//   return (
+//     <span
+//       className="color-indicator"
+//       style={{
+//         borderColor: finalColor,
+//         backgroundColor:
+//           isAlwaysFilled || isChecked ? finalColor : "transparent",
+//       }}
+//     />
+//   );
+// };
 
 const DataPractices = ({ formData, updateFormData }) => {
   const parentKey = "dataPractices";
