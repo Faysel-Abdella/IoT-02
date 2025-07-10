@@ -522,6 +522,7 @@ input[type="radio"] {
 .sidebar-item-wrapper:hover .tooltip-text {
   visibility: visible;
   opacity: 1;
+  font-size: 14px;
 }
 
 /* Optional: Add an arrow */
@@ -535,6 +536,54 @@ input[type="radio"] {
   border-style: solid;
   border-color: #333 transparent transparent transparent;
 }
+
+/* ENSURE THIS BLOCK EXISTS IN YOUR CSS FILE */
+
+.portal-tooltip {
+  position: fixed;
+  transform: translate(-50%, -100%) translateY(-8px); /* Positions it above the target */
+  z-index: 9999;
+
+  /* Visual styles */
+  width: 250px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 10px;
+  pointer-events: none;
+  visibility: visible;
+  opacity: 1;
+}
+
+.portal-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: #333 transparent transparent transparent;
+}
+
+.portal-tooltip.placement-bottom {
+  /* 
+    Instead of moving UP (-100%), we move DOWN from the starting point.
+    translateY(8px) adds the small gap below the item.
+  */
+  transform: translate(-50%, 0) translateY(8px);
+}
+
+/* We also need to flip the little arrow so it points UP */
+.portal-tooltip.placement-bottom::after {
+  top: auto; /* Unset the default top position */
+  bottom: 100%; /* Position the arrow at the top of the tooltip box */
+
+  /* The border colors are flipped to make the arrow point up */
+  border-color: transparent transparent #333 transparent;
+}
+
 /* make header click-through and arrow on the right */
 /* Improved section header with integrated arrow */
 /* Bold section headers with table-like styling */
