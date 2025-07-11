@@ -207,11 +207,11 @@ const SecurityMechanisms = ({ formData, updateFormData }) => {
           </h3>
         </TooltipWrapper>
 
-        <div className="checkbox-grid security-updates-grid">
-          {" "}
-          {/* Add new class for specific styling */}
+        <div className="security-updates-grid">
           {securityData.securityUpdates.map(
+            // Destructure all properties from the option, including the new 'hasDateInput'
             ({ value, label, description, hasDateInput }) => {
+              // This logic correctly checks if the new value is in the state array
               const isChecked = (formData.securityUpdates || []).includes(
                 value
               );
@@ -219,46 +219,48 @@ const SecurityMechanisms = ({ formData, updateFormData }) => {
               return (
                 <div
                   key={value}
-                  // This applies a full-width class to the "NO SECURITY UPDATES" option
+                  // This applies a full-width class to the "No security updates" option if you want that layout
                   className={`checkbox-group tooltip-container ${
-                    value === "none" ? "grid-item-full-width" : ""
+                    value === "No security updates"
+                      ? "grid-item-full-width"
+                      : ""
                   }`}
                 >
-                  {/* The label and checkbox stay the same */}
-                  <label className="checkbox-label">
-                    <input
-                      type="checkbox"
-                      checked={isChecked}
-                      onChange={() =>
-                        handleCheckboxChange("securityUpdates", value)
-                      }
-                    />
-                    <span className="checkbox-text">{label}</span>
-                  </label>
+                  <div className="tooltip-container">
+                    <label className="checkbox-label">
+                      <input
+                        type="checkbox"
+                        checked={isChecked}
+                        // --- THIS IS THE FIX ---
+                        // Use the 'value' from the mapped option directly.
+                        // This ensures that when you click the checkbox for "Automatic, until",
+                        // the exact string "Automatic, until" is saved to your state.
+                        onChange={() =>
+                          handleCheckboxChange("securityUpdates", value)
+                        }
+                      />
+                      <span className="checkbox-text">{label}</span>
+                    </label>
+                    {description !== "" && (
+                      <span className="tooltip-text">{description}</span>
+                    )}
+                  </div>
 
-                  {/* --- NEW: Conditionally render the date input --- */}
+                  {/* The conditional date input logic remains the same */}
                   {hasDateInput && (
                     <input
                       type="date"
                       className="date-input"
-                      // The input is disabled if the checkbox is not checked
                       disabled={!isChecked}
-                      // Get the date value from a separate state object
                       value={(formData.securityUpdateDates || {})[value] || ""}
                       onChange={(e) => handleDateChange(value, e.target.value)}
                     />
-                  )}
-
-                  {/* Your tooltip for description */}
-                  {description && (
-                    <span className="tooltip-text">{description}</span>
                   )}
                 </div>
               );
             }
           )}
         </div>
-        {/* ... Additional Info textarea ... */}
       </div>
 
       {/* Access Control Section - Also generated from data! */}

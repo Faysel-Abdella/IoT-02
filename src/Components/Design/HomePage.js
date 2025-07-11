@@ -75,6 +75,7 @@ import PdfPreviewer from "./pdf/PdfPreviewer.js"; // Adjust path
 // import { useNavigate } from "react-router-dom";
 import { resetForm } from "../../lib/features/form/formSlice.js";
 import TooltipWrapper from "./TooltipWrapper.js";
+import Chatbot from "./Chatbot.js";
 // import Chatbot from "./Chatbot.js";
 // import { resetForm } from "@/lib/features/form/formSlice"; // Adjust path
 
@@ -1125,8 +1126,7 @@ export default function HomePage() {
         currentDropItem={currentDropItem}
       />
       <div className="username-display">Welcome, {username}!</div>
-      {/* <Chatbot /> */}
-
+      <Chatbot />
       <div className="left-wrapper">
         <div id="left-parent">
           {/* --- RESTORED TOOLBAR --- */}
@@ -1218,7 +1218,7 @@ export default function HomePage() {
           style={{
             display: "flex",
             justifyContent: "space-between",
-            margin: 10,
+            // margin: 10,
             flexWrap: "wrap",
           }}
         >
