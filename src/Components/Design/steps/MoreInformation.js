@@ -1,5 +1,6 @@
 "use client";
 
+import TooltipWrapper from "../TooltipWrapper";
 import { MoreInformationsData } from "./data/MoreInforrmationsData";
 
 // We can reuse the same smart ColorCircle component
@@ -45,9 +46,9 @@ const MoreInformation = ({ formData, updateFormData }) => {
     updateFormData(parentKey, field, value);
   };
 
-  const handleInputChange = (field, value) => {
-    updateFormData(parentKey, field, value);
-  };
+  // const handleInputChange = (field, value) => {
+  //   updateFormData(parentKey, field, value);
+  // };
 
   return (
     <div className="step-content">
@@ -55,7 +56,7 @@ const MoreInformation = ({ formData, updateFormData }) => {
 
       {/* Privacy Policy Section */}
       <div className="form-section">
-        <h3 className="section-title">Privacy Policy:</h3>
+        <h3 className="section-title">Privacy Policy</h3>
         <div className="checkbox-list">
           {MoreInformationsData.privacyPolicy.map((option) => {
             const isChecked = (formData.privacyPolicy || []).includes(
@@ -85,12 +86,14 @@ const MoreInformation = ({ formData, updateFormData }) => {
       </div>
 
       <div className="form-section">
-        <h3 className="section-title">Functionality when offline</h3>
-        {/* FIX: Changed 'class' to the correct JSX 'className' */}
-        <p className="title-description">
-          {" "}
-          How the device is expected to function when no internet is available
-        </p>
+        <TooltipWrapper tooltipText="How the device is expected to function when no internet is available">
+          <h3
+            className="section-title"
+            style={{ cursor: "help", display: "inline-block" }}
+          >
+            Functionality when offline
+          </h3>
+        </TooltipWrapper>
 
         <div className="radio-list">
           {/* Using the clean, destructured parameters as requested */}
@@ -135,68 +138,95 @@ const MoreInformation = ({ formData, updateFormData }) => {
       </div>
 
       <div className="form-section">
-        <h3 className="section-title">Functionality with No Data Processing</h3>
-        <p class="title-description">
-          How the device is expected to function when data is not being
-          processed
-        </p>
-        <div className="checkbox-list">
-          {MoreInformationsData.noDataFunctionality.map((option) => {
-            // We use a new state field 'noDataFunctionality'
-            const isChecked = (formData.noDataFunctionality || []).includes(
-              option.value
-            );
-            return (
-              <div key={option.value} className="tooltip-container">
-                <label className="checkbox-label">
+        <TooltipWrapper tooltipText="How the device is expected to function when data is not being processed">
+          <h3
+            className="section-title"
+            style={{ cursor: "help", display: "inline-block" }}
+          >
+            Functionality with No Data Processing
+          </h3>
+        </TooltipWrapper>
+
+        {/* Use 'radio-list' for consistent styling */}
+        <div className="radio-list">
+          {MoreInformationsData.noDataFunctionality.map(
+            ({ value, label, description }) => {
+              // The check is now a simple string comparison, not an array search
+              const isChecked = formData.noDataFunctionality === value;
+
+              return (
+                <div key={value} className="tooltip-container">
+                  {/* The hidden radio input */}
                   <input
-                    type="checkbox"
-                    value={option.value}
+                    type="radio"
+                    // A unique ID for this input (ndf = No Data Functionality)
+                    id={`radio-ndf-${value}`}
+                    // The 'name' attribute is essential for grouping radio buttons
+                    name="noDataFunctionality"
+                    value={value}
                     checked={isChecked}
-                    // The generic checkbox handler works perfectly
+                    // Use the radio handler to set a single value
                     onChange={() =>
-                      handleCheckboxChange("noDataFunctionality", option.value)
+                      handleRadioChange("noDataFunctionality", value)
                     }
+                    style={{ display: "none" }}
                   />
-                  <div className="label-content">
-                    <span className="checkbox-text">{option.label}</span>
-                    {/* <ColorCircle color={option.color} isChecked={isChecked} /> */}
-                  </div>
-                </label>
-                {option.description !== "" && (
-                  <span className="tooltip-text">{option.description}</span>
-                )}
-              </div>
-            );
-          })}
+
+                  {/* The clickable label linked to its input */}
+                  <label htmlFor={`radio-ndf-${value}`} className="radio-label">
+                    <div className="label-content">
+                      <span className="radio-text">{label}</span>
+                    </div>
+                  </label>
+
+                  {/* The tooltip logic remains the same */}
+                  {description !== "" && (
+                    <span className="tooltip-text">{description}</span>
+                  )}
+                </div>
+              );
+            }
+          )}
         </div>
       </div>
 
       <div className="form-section">
-        <h3 className="section-title">Physical actuations and triggers</h3>
-        {/* Add the subtitle here */}
-        <p className="section-description">
-          How the device is expected to behave in response to triggers
-        </p>
+        <TooltipWrapper tooltipText="How the device is expected to behave in response to triggers">
+          <h3
+            className="section-title"
+            style={{ cursor: "help", display: "inline-block" }}
+          >
+            Physical actuations and triggers
+          </h3>
+        </TooltipWrapper>
 
-        {/* <div className="form-group">
-          <textarea
-            className="form-textarea"
-            rows="4"
-            placeholder="e.g., Windows 10, macOS, iOS 15+, Android 12+, etc."
-            // We use a new state field 'compatiblePlatforms'
-            value={formData.compatiblePlatforms || ""}
-            onChange={(e) =>
-              handleInputChange("compatiblePlatforms", e.target.value)
-            }
-          />
-        </div> */}
-        <div className="checkbox-list">
+        {/* --- The Free-Text Input --- */}
+        <input
+          id="actuators"
+          type="text"
+          placeholder="Device blinks when motion is detected"
+          // Display the value ONLY if it's not the 'Not Disclosed' flag.
+          // This makes the input clear when the box is checked.
+          value={
+            formData.physicalActuations === "PHYSICAL_ACTUATIONS_NOT_DISCLOSED"
+              ? ""
+              : formData.physicalActuations || ""
+          }
+          // Any typing in this box will update the state, automatically unchecking the box below.
+          // We can reuse your handleRadioChange because it sets a single string value.
+          onChange={(e) =>
+            handleRadioChange("physicalActuations", e.target.value)
+          }
+          className="form-input"
+        />
+
+        {/* --- The "Not Disclosed" Checkbox --- */}
+        {/* We wrap it in its own div for proper spacing. */}
+        <div className="checkbox-list" style={{ marginTop: "12px" }}>
           {MoreInformationsData.physicalActuations.map((option) => {
-            // We use a new state field 'physicalActuations'
-            const isChecked = (formData.physicalActuations || []).includes(
-              option.value
-            );
+            // The box is checked ONLY if the state exactly matches its value.
+            const isChecked = formData.physicalActuations === option.value;
+
             return (
               <div key={option.value} className="tooltip-container">
                 <label className="checkbox-label">
@@ -204,13 +234,14 @@ const MoreInformation = ({ formData, updateFormData }) => {
                     type="checkbox"
                     value={option.value}
                     checked={isChecked}
-                    onChange={() =>
-                      handleCheckboxChange("physicalActuations", option.value)
-                    }
+                    // This logic handles both checking and unchecking.
+                    onChange={() => {
+                      const newValue = isChecked ? "" : option.value;
+                      handleRadioChange("physicalActuations", newValue);
+                    }}
                   />
                   <div className="label-content">
                     <span className="checkbox-text">{option.label}</span>
-                    {/* <ColorCircle color={option.color} isChecked={isChecked} /> */}
                   </div>
                 </label>
                 <span className="tooltip-text">{option.description}</span>
@@ -221,23 +252,27 @@ const MoreInformation = ({ formData, updateFormData }) => {
       </div>
 
       <div className="form-section">
-        <h3 className="section-title">Compatible platforms</h3>
-        <p className="section-description">
-          List of platforms the device can work with
-        </p>
-
-        <div className="form-group">
-          <textarea
-            className="form-textarea"
-            rows="4"
-            placeholder="e.g., Windows 10, macOS, iOS 15+, Android 12+, etc."
-            // We use a new state field 'compatiblePlatforms'
-            value={formData.compatiblePlatforms || ""}
-            onChange={(e) =>
-              handleInputChange("compatiblePlatforms", e.target.value)
-            }
-          />
-        </div>
+        <TooltipWrapper tooltipText="List of platforms the device can work with">
+          <h3
+            className="section-title"
+            style={{ cursor: "help", display: "inline-block" }}
+          >
+            Compatible platforms
+          </h3>
+        </TooltipWrapper>
+        <input
+          id="platforms"
+          type="text"
+          placeholder="Amazon Alexa"
+          // FIX 1: Read directly from the formData prop passed to this component.
+          // It should not be formData.MoreInformation.compatiblePlatforms
+          value={formData.compatiblePlatforms || ""}
+          // FIX 2: Update the correct state field: "compatiblePlatforms"
+          onChange={(e) =>
+            updateFormData(parentKey, "compatiblePlatforms", e.target.value)
+          }
+          className="form-input"
+        />
       </div>
 
       {/* You can add more sections to this component in the future */}

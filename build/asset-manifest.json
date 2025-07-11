@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.c6b3397f.css",
-    "main.js": "/static/js/main.70d6743a.js",
+    "main.css": "/static/css/main.bd5bfe61.css",
+    "main.js": "/static/js/main.5429c98f.js",
     "static/js/453.fdf7da80.chunk.js": "/static/js/453.fdf7da80.chunk.js",
     "static/media/Dataprocessor.png": "/static/media/Dataprocessor.7f139c802f3c1a98d6b9.png",
     "static/media/Controller.png": "/static/media/Controller.d460314280027a03e96e.png",
@@ -22,24 +22,21 @@
     "static/media/LampSensor.png": "/static/media/LampSensor.de6848e32a1a5e337a0a.png",
     "static/media/dashboard.png": "/static/media/dashboard.87c36bcd4f4f546e7836.png",
     "static/media/Localstorage.png": "/static/media/Localstorage.9b1d9071fbd10683fadf.png",
-    "static/media/sensor3.jpeg": "/static/media/sensor3.5a7768b19d99b27c3ee0.jpeg",
     "static/media/wifi.png": "/static/media/wifi.6a1527a499a4efba82cd.png",
     "static/media/Micro.png": "/static/media/Micro.99c6da74fd338a199086.png",
     "static/media/voice.png": "/static/media/voice.f9b7e9a304200799ee19.png",
     "static/media/laser.png": "/static/media/laser.d060d0db2b50de73dd2d.png",
     "static/media/battery.png": "/static/media/battery.2592d61d7efe7ec02bfe.png",
-    "static/media/audio.png": "/static/media/audio.5eb053d35bdad74c38b4.png",
-    "static/media/sensor1.png": "/static/media/sensor1.f1532d18dcbe3f54577b.png",
     "static/media/Power.svg": "/static/media/Power.a9f8a816476019971d692f7303bf87d8.svg",
     "static/media/Wheel.svg": "/static/media/Wheel.bd391c444cc25ff477048d18101c5af7.svg",
     "index.html": "/index.html",
     "static/media/Tag.svg": "/static/media/Tag.ec1505f9cd7d6c478ad1030f5ec945c9.svg",
-    "main.c6b3397f.css.map": "/static/css/main.c6b3397f.css.map",
-    "main.70d6743a.js.map": "/static/js/main.70d6743a.js.map",
+    "main.bd5bfe61.css.map": "/static/css/main.bd5bfe61.css.map",
+    "main.5429c98f.js.map": "/static/js/main.5429c98f.js.map",
     "453.fdf7da80.chunk.js.map": "/static/js/453.fdf7da80.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.c6b3397f.css",
-    "static/js/main.70d6743a.js"
+    "static/css/main.bd5bfe61.css",
+    "static/js/main.5429c98f.js"
   ]
 }
