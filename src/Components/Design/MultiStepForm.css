@@ -234,7 +234,6 @@
 /* === STYLES FOR SECURITY MECHANISMS (CHECKBOXES/RADIO/CIRCLES) === */
 /* ================================================================ */
 
-/* --- Main Layout for Checkbox/Radio Lists --- */
 .checkbox-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -250,7 +249,6 @@
   margin-bottom: 16px;
 }
 
-/* --- The Main Label (the entire clickable row) --- */
 .checkbox-label,
 .radio-label {
   display: flex;
@@ -341,6 +339,265 @@
   padding-bottom: 10px;
 }
 
+/* ================================================================ */
+/* ===         STYLES FOR NESTED CHECKBOXES (DATA PRACTICES)    === */
+/* ================================================================ */
+
+.parent-checkbox-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.nested-checkbox-list {
+  margin-top: 8px;
+  margin-left: 20px;
+  padding-left: 20px;
+  border-left: 2px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nested-label {
+  font-size: 13px;
+  color: #4b5563;
+}
+
+.section-description {
+  font-size: 14px;
+  color: #6b7280;
+  margin-top: -12px;
+  margin-bottom: 16px;
+}
+
+.form-select {
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%236B7280%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.4-5.4-12.8z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 0.65rem auto;
+}
+
+/* ================================================= */
+/* ===           CUSTOM DROPDOWN STYLES          === */
+/* ================================================= */
+
+.custom-select-wrapper {
+  position: relative;
+  width: 100%;
+  font-family: inherit;
+}
+
+.custom-select-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background-color: #f9fafb;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+
+.custom-select-trigger:hover {
+  background-color: #f3f4f6;
+}
+
+.custom-select-trigger.open,
+.custom-select-trigger:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.custom-arrow {
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid #6b7280;
+  transition: transform 0.2s;
+}
+
+.custom-select-trigger.open .custom-arrow {
+  transform: rotate(180deg);
+}
+
+.custom-select-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  list-style: none;
+  padding: 8px 0;
+  margin-top: 4px;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.custom-select-option {
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: background-color 0.1s;
+}
+
+.custom-select-option:hover {
+  background-color: #f3f4f6;
+}
+
+.portal-tooltip {
+  width: 250px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 10px;
+  pointer-events: none;
+  visibility: visible;
+  opacity: 1;
+  position: fixed;
+  z-index: 9999;
+  transform: translate(-50%, -100%) translateY(-8px);
+}
+
+.portal-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: #333 transparent transparent transparent;
+}
+
+input[type="radio"]:checked + .radio-label {
+  background-color: #eff6ff;
+  border: 1px solid #959596;
+  padding: 7px 3px;
+}
+
+input[type="radio"]:checked + .radio-label .radio-text {
+  font-weight: 600;
+  color: #2b2e36;
+}
+
+.security-updates-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.grid-item-full-width {
+  grid-column: 1 / -1;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.date-input {
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background-color: #f9fafb;
+  font-size: 14px;
+  font-family: inherit;
+  margin-top: 8px;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.date-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.date-input:disabled {
+  background-color: #e5e7eb;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.checkbox-label svg {
+  margin-right: 8px;
+  color: #3b82f6;
+}
+
+.yes-no-options {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-left: 38px;
+  margin-top: 8px;
+  padding-bottom: 8px;
+}
+
+.yes-no-option {
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b7280;
+  cursor: pointer;
+  transition: color 0.2s;
+  user-select: none;
+}
+
+.yes-no-option:hover {
+  color: #374151;
+}
+
+.yes-no-option.active {
+  color: #3b82f6;
+  font-weight: 700;
+}
+
+.label-hint {
+  color: #6b7280;
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.form-label {
+  display: flex;
+  gap: 4px;
+  align-items: start;
+  font-size: 16px;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 8px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background-color: #f9fafb;
+  font-size: 16px;
+  color: #374151;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.form-input::placeholder {
+  color: #9ca3af;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
 /* ================================================= */
 /* ===             RESPONSIVE DESIGN             === */
 /* ================================================= */
@@ -352,12 +609,10 @@
     padding: 24px 16px;
   }
 
-  /* --- THIS IS THE FIX --- */
-  /* .form-grid has been removed from this rule */
+  /* --- THIS IS THE CORRECTED RULE --- */
+  /* This rule now ONLY applies to .checkbox-grid, leaving .form-grid alone. */
   .checkbox-grid {
     grid-template-columns: 1fr;
     gap: 16px;
   }
 }
-
-/* ... all other styles from your file ... */
