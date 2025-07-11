@@ -46,9 +46,9 @@ const MoreInformation = ({ formData, updateFormData }) => {
     updateFormData(parentKey, field, value);
   };
 
-  const handleInputChange = (field, value) => {
-    updateFormData(parentKey, field, value);
-  };
+  // const handleInputChange = (field, value) => {
+  //   updateFormData(parentKey, field, value);
+  // };
 
   return (
     <div className="step-content">

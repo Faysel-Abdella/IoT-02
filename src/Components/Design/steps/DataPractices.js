@@ -1,7 +1,7 @@
 "use client";
 
 import { dataPracticesData } from "./data/dataPracticesData.js";
-import CustomSelect from "../CustomSelect.js";
+// import CustomSelect from "../CustomSelect.js";
 import TooltipWrapper from "../TooltipWrapper.js";
 
 // We can reuse the same smart ColorCircle component from SecurityMechanisms

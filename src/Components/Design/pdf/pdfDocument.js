@@ -98,15 +98,15 @@ const Field = ({ label, value }) => {
   );
 };
 
-const TextAreaField = ({ label, value }) => {
-  if (!value) return null;
-  return (
-    <View style={{ marginBottom: 8 }}>
-      <Text style={styles.h3}>{label}</Text>
-      <Text style={styles.textAreaValue}>{value}</Text>
-    </View>
-  );
-};
+// const TextAreaField = ({ label, value }) => {
+//   if (!value) return null;
+//   return (
+//     <View style={{ marginBottom: 8 }}>
+//       <Text style={styles.h3}>{label}</Text>
+//       <Text style={styles.textAreaValue}>{value}</Text>
+//     </View>
+//   );
+// };
 
 const RadioField = ({ title, selectedValue, dataKey }) => {
   if (!selectedValue) return null;

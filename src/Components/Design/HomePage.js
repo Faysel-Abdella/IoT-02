@@ -12,7 +12,7 @@ import "./SensorGrid.css";
 import {
   FaChevronDown,
   FaChevronRight,
-  FaDownload,
+  // FaDownload,
   // FaFilePdf,
 } from "react-icons/fa";
 
@@ -66,8 +66,8 @@ import { useDispatch } from "react-redux";
 import { initialData } from "../constant/constant.js";
 import { BiPlus } from "react-icons/bi";
 import Modal from "../modal/index.js";
-import PdfGenerator from "../modal/components/pdfFile.js";
-import { PDFDownloadLink } from "@react-pdf/renderer";
+// import PdfGenerator from "../modal/components/pdfFile.js";
+// import { PDFDownloadLink } from "@react-pdf/renderer";
 import { useDrag, useDrop } from "react-dnd";
 import MultiStepForm from "./MultiStepForm.js";
 import FormModal from "./../modal/form/FormModal.js"; // Adjust the path if necessary
