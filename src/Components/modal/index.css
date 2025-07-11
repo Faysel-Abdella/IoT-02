@@ -1,3 +1,9 @@
+/* ================================================= */
+/* ===      MODAL & STICKY LAYOUT STYLES         === */
+/* ================================================= */
+
+/* --- 1. The Modal Frame (Your Provided Styles, with minor tweaks) --- */
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -9,18 +15,24 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  /* padding: 20px; */
+  box-sizing: border-box;
 }
 
 .modal-content {
   background-color: white;
-  padding: 20px;
   border-radius: 8px;
   position: relative;
-  width: 800px;
-  max-width: 100%;
-  max-height: 80vh; /* Limits the height of the modal */
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
-  overflow: hidden; /* Prevents modal content from overflowing */
+
+  /* --- KEY RESPONSIVE STYLES --- */
+  width: 100%; /* Fills the padded overlay */
+  max-width: 1400px; /* But never gets wider than this */
+  height: 90vh; /* Takes up most of the screen height */
+
+  /* The modal content itself is a flex container but does not scroll */
+  display: flex;
+  overflow: hidden;
 }
 
 .modal-close {
@@ -31,11 +43,87 @@
   border: none;
   font-size: 24px;
   cursor: pointer;
+  z-index: 1010; /* Ensures it's on top of all modal content */
 }
 
+/* 
+  The .modal-body is no longer needed for scrolling control, 
+  but can be used for general padding if you wish.
+*/
 .modal-body {
-  margin-top: 20px;
-  max-height: 60vh; /* Allows room for content to scroll */
-  overflow-y: auto; /* Scrollable if content exceeds max height */
-  padding-right: 10px; /* Optional: Adds padding to avoid scrollbar overlap */
+  width: 100%;
+  height: 100%;
+}
+
+/* --- 2. The Internal Two-Column Sticky Layout (The Missing Piece) --- */
+/* This is what makes your form and preview panels work correctly */
+
+.sticky-layout-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  gap: 30px;
+  box-sizing: border-box;
+}
+
+/* The left panel (the form) that should scroll */
+.form-panel-scrollable {
+  /* This tells this panel to grow and take all available space */
+  flex: 1;
+
+  /* This makes ONLY this panel scrollable */
+  overflow-y: auto;
+
+  /* Add some padding to prevent content from touching the scrollbar */
+  padding-right: 15px;
+}
+
+/* The right panel (the PDF preview) that should be "sticky" */
+.preview-panel-sticky {
+  /* Define a fixed width for the preview */
+  width: 500px;
+
+  /* Prevent this panel from shrinking */
+  flex-shrink: 0;
+
+  /* The PDF previewer inside will handle its own scrolling, so we hide panel overflow */
+  height: 100%;
+  overflow: hidden;
+
+  /* Optional: Add a border for visual separation */
+  border-left: 1px solid #e5e7eb;
+  padding-left: 30px;
+}
+
+/* --- 3. Responsive Adjustments for Small Screens --- */
+@media (max-width: 900px) {
+  .sticky-layout-container {
+    /* On small screens, stack the columns vertically */
+    flex-direction: column;
+
+    /* The whole container must scroll now */
+    overflow-y: auto;
+
+    /* Reset padding */
+    padding-right: 0;
+    padding-left: 5px; /* Give a little space on the left */
+  }
+
+  .preview-panel-sticky {
+    width: 100%; /* Take up the full width */
+    height: auto;
+    max-height: 80vh; /* Give it a max-height */
+    flex-shrink: 1; /* Allow it to shrink */
+    border-left: none;
+    border-top: 1px solid #e5e7eb;
+    padding-left: 0;
+    padding-top: 20px;
+    margin-top: 20px;
+  }
+
+  .form-panel-scrollable {
+    overflow-y: visible; /* Its parent is scrolling, so it doesn't need to */
+    padding-right: 0;
+  }
 }

@@ -1,29 +1,29 @@
 export const securityData = {
   securityUpdates: [
     {
-      value: "Automatic",
-      label: "Automatic",
+      value: "Automatic, until",
+      label: "Automatic, until",
       color: "#4CAF50", // Green
       description: "Device will automatically receive security updates.",
       hasDateInput: true, // <-- ADD THIS
     },
     {
-      value: "Manual",
-      label: "Manual",
+      value: "Manual, until",
+      label: "Manual, until",
       color: "#FFC107", // Yellow
       description: "User needs to manually install security updates.",
       hasDateInput: true, // <-- ADD THIS
     },
     {
-      value: "Consent based",
-      label: "Consent based",
+      value: "Consent based, until",
+      label: "Consent based, until",
       color: "#FFC107", // Yellow
       description: "User will be asked whether to update the device.",
       hasDateInput: true, // <-- ADD THIS
     },
     {
-      value: "No security updates",
-      label: "No security updates",
+      value: "No security updates, until",
+      label: "No security updates, until",
       color: "#F44336", // Red
       description: "Device will not receive any security updates.",
       hasDateInput: true, // <-- ADD THIS
