@@ -543,6 +543,7 @@ input[type="radio"] {
   position: fixed;
   transform: translate(-50%, -100%) translateY(-8px); /* Positions it above the target */
   z-index: 9999;
+  font-size: 17px;
 
   /* Visual styles */
   width: 250px;

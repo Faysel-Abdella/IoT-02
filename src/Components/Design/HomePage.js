@@ -75,6 +75,7 @@ import PdfPreviewer from "./pdf/PdfPreviewer.js"; // Adjust path
 // import { useNavigate } from "react-router-dom";
 import { resetForm } from "../../lib/features/form/formSlice.js";
 import TooltipWrapper from "./TooltipWrapper.js";
+// import Chatbot from "./Chatbot.js";
 // import { resetForm } from "@/lib/features/form/formSlice"; // Adjust path
 
 // --- React DnD Setup ---
@@ -1124,6 +1125,7 @@ export default function HomePage() {
         currentDropItem={currentDropItem}
       />
       <div className="username-display">Welcome, {username}!</div>
+      {/* <Chatbot /> */}
 
       <div className="left-wrapper">
         <div id="left-parent">
@@ -1223,7 +1225,7 @@ export default function HomePage() {
           <div style={{ flex: 1, minWidth: "600px", marginRight: "20px" }}>
             <PrivacyComponent userData={droppedItems} />
           </div>
-          <div id="Feedback">
+          {/* <div id="Feedback">
             <div className="container">
               <div
                 style={{
@@ -1232,7 +1234,7 @@ export default function HomePage() {
                   textAlign: "center",
                 }}
               >
-                {/* <img
+                <img
                   src={log}
                   alt="Interaction Log Icon"
                   className="interaction-log-img"
@@ -1246,7 +1248,7 @@ export default function HomePage() {
                     onCloseClick={toggleInteractionLog}
                     onStarClick={handleStarClick}
                   />
-                )} */}
+                )}
                 {typeof window !== "undefined" && (
                   <PDFDownloadLink
                     document={<PdfGenerator />}
@@ -1270,7 +1272,7 @@ export default function HomePage() {
                 )}
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 

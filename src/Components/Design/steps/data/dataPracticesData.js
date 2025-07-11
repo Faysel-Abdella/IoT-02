@@ -3,7 +3,7 @@ export const dataPracticesData = {
     {
       value: "visual",
       label: "Visual",
-      description: "Device can collect visual data (e.g., video, still image).",
+      description: "Device can collect visual",
       color: "#F44336", // Red
     },
     {
@@ -22,7 +22,7 @@ export const dataPracticesData = {
     {
       value: "temperature",
       label: "Temperature",
-      description: "Device can sense the ambient temperature.",
+      description: "Device can measure temperature",
       color: "#4CAF50", // Green
     },
     {
@@ -74,6 +74,12 @@ export const dataPracticesData = {
       color: "#4CAF50", // Green
     },
     {
+      value: "ON_THIRD_PARTY_REQUEST",
+      label: "When third parties request it",
+      description: "The frequency of data sharing is imposed by third parties.",
+      color: "#F44336", // Red
+    },
+    {
       value: "ON_USER_REQUEST",
       label: "When user requests it",
       description: "Data is shared only when the user explicitly requests it.",
@@ -82,32 +88,25 @@ export const dataPracticesData = {
     {
       value: "PERIODIC",
       label: "Periodic",
-      description: "Data is shared at regular, defined intervals.",
-      color: "#FFC107", // Yellow
-    },
-    {
-      value: "ON_LEGAL_REQUIREMENT",
-      label: "When required by law",
-      description: "Data is shared when there is a legal obligation to do so.",
+      description: "",
       color: "#FFC107", // Yellow
     },
     {
       value: "CONTINUOUS",
       label: "Continuous",
-      description: "Data is shared constantly or in a continuous stream.",
+      description: "",
       color: "#F44336", // Red
     },
     {
-      value: "ON_THIRD_PARTY_REQUEST",
-      label: "When third parties request it",
-      description: "The frequency of data sharing is imposed by third parties.",
-      color: "#F44336", // Red
+      value: "ON_LEGAL_REQUIREMENT",
+      label: "When required by law",
+      description: "",
+      color: "#FFC107", // Yellow
     },
     {
       value: "NOT_DISCLOSED",
       label: "Not disclosed",
-      description:
-        "The frequency of data collection and sharing is not disclosed.",
+      description: "",
       color: "#F44336", // Red
     },
   ],
@@ -202,12 +201,6 @@ export const dataPracticesData = {
 
   localDataRetention: [
     {
-      value: "NO_RETENTION",
-      label: "No retention",
-      description: "User's data will not be retained on the device.",
-      color: "#4CAF50", // Green
-    },
-    {
       value: "UP_TO_A_DAY",
       label: "Up to a day",
       description:
@@ -240,6 +233,12 @@ export const dataPracticesData = {
       label: "Forever",
       description: "User's data may be retained on the device indefinitely.",
       color: "#F44336", // Red
+    },
+    {
+      value: "NO_RETENTION",
+      label: "No retention",
+      description: "User's data will not be retained on the device.",
+      color: "#4CAF50", // Green
     },
   ],
 
@@ -281,12 +280,6 @@ export const dataPracticesData = {
 
   cloudDataRetention: [
     {
-      value: "NO_RETENTION_CLOUD",
-      label: "No retention",
-      description: "User's data will not be retained in the cloud.",
-      color: "#4CAF50", // Green
-    },
-    {
       value: "UP_TO_A_DAY_CLOUD",
       label: "Up to a day",
       description:
@@ -320,62 +313,68 @@ export const dataPracticesData = {
       description: "User's data may be retained in the cloud indefinitely.",
       color: "#F44336", // Red
     },
+    {
+      value: "NO_RETENTION_CLOUD",
+      label: "No retention",
+      description: "User's data will not be retained in the cloud.",
+      color: "#4CAF50", // Green
+    },
   ],
 
   dataSharedWith: [
     {
       value: "THIRD_PARTIES",
       label: "Third parties",
-      description:
-        "User data is shared with external companies or partners for their own use (e.g., marketing, analytics).",
+      // description:
+      //   "User data is shared with external companies or partners for their own use (e.g., marketing, analytics).",
       color: "#F44336", // Red
     },
     {
       value: "EMERGENCY_SERVICES",
       label: "Emergency services",
-      description:
-        "Data is shared with emergency services (e.g., police, ambulance) in case of an incident.",
+      // description:
+      //   "Data is shared with emergency services (e.g., police, ambulance) in case of an incident.",
       color: "#4CAF50", // Green
     },
 
     {
       value: "MANUFACTURER",
       label: "Manufacturer",
-      description:
-        "Data is shared internally within the manufacturer's organization or with its direct affiliates.",
+      // description:
+      //   "Data is shared internally within the manufacturer's organization or with its direct affiliates.",
       color: "#FFC107", // Yellow
     },
     {
       value: "GOVERNMENT_AND_LEGAL",
       label: "Government and legal authorities",
-      description:
-        "Data is shared with government bodies or law enforcement when legally required.",
+      // description:
+      //   "Data is shared with government bodies or law enforcement when legally required.",
       color: "#FFC107", // Yellow
     },
     {
       value: "SERVICE_PROVIDERS",
       label: "Service providers",
-      description:
-        "Data is shared with companies that perform services on behalf of the manufacturer (e.g., cloud hosting).",
+      // description:
+      //   "Data is shared with companies that perform services on behalf of the manufacturer (e.g., cloud hosting).",
       color: "#FFC107", // Yellow
     },
     {
       value: "PUBLIC",
       label: "Public",
-      description: "Data is made publicly available to anyone.",
+      // description: "Data is made publicly available to anyone.",
       color: "#F44336", // Red
     },
     {
       value: "NOT_SHARED",
       label: "Not shared",
-      description: "User data is not shared with any external parties.",
+      // description: "User data is not shared with any external parties.",
       color: "#4CAF50", // Green
     },
     {
       value: "NOT_DISCLOSED_SHARED",
       label: "Not disclosed",
-      description:
-        "The manufacturer does not disclose who the data is shared with.",
+      // description:
+      //   "The manufacturer does not disclose who the data is shared with.",
       color: "#F44336", // Red
     },
   ],
@@ -397,32 +396,32 @@ export const dataPracticesData = {
     {
       value: "PERIODIC_FREQ",
       label: "Periodic",
-      description: "Data is shared at regular, defined intervals.",
+      description: "",
       color: "#FFC107", // Yellow
     },
 
     {
       value: "CONTINUOUS_FREQ",
       label: "Continuous",
-      description: "Data is shared constantly or in a continuous stream.",
+      description: "",
       color: "#F44336", // Red
     },
     {
       value: "ON_LEGAL_REQUIREMENT_FREQ",
       label: "When required by law",
-      description: "Data is shared when there is a legal obligation to do so.",
+      description: "",
       color: "#FFC107", // Yellow
     },
     {
       value: "NOT_SHARED_FREQ",
       label: "Not shared",
-      description: "Data is not shared, so there is no sharing frequency.",
+      description: "",
       color: "#F44336", // Red
     },
     {
       value: "NOT_DISCLOSED_FREQ",
       label: "Not disclosed",
-      description: "The frequency of data sharing is not disclosed.",
+      description: "",
       color: "#F44336", // Red
     },
   ],
@@ -446,49 +445,49 @@ export const dataPracticesData = {
     {
       value: "CONTACT_INFO",
       label: "Contact info",
-      description:
-        "Personal contact information such as name, email address, or phone number.",
+      // description:
+      //   "Personal contact information such as name, email address, or phone number.",
       color: null, // No color specified
     },
     {
       value: "ACCOUNT_INFO",
       label: "Account info",
-      description:
-        "Information related to the user's account, such as username or profile settings.",
+      // description:
+      //   "Information related to the user's account, such as username or profile settings.",
       color: null,
     },
     {
       value: "DEVICE_SETUP_INFO",
       label: "Device setup info",
-      description:
-        "Information about how the device was configured during its initial setup.",
+      // description:
+      //   "Information about how the device was configured during its initial setup.",
       color: null,
     },
     {
       value: "DEVICE_TECH_INFO",
       label: "Device tech info",
-      description:
-        "Technical information about the device, such as model, OS version, or network status.",
+      // description:
+      //   "Technical information about the device, such as model, OS version, or network status.",
       color: null,
     },
     {
       value: "DEVICE_USAGE_INFO",
       label: "Device usage info",
-      description:
-        "Data about how the user interacts with the device, such as app usage or feature frequency.",
+      // description:
+      //   "Data about how the user interacts with the device, such as app usage or feature frequency.",
       color: null,
     },
     {
       value: "DEVICE_UNIQUE_IDENTIFIERS",
       label: "Device unique identifiers",
-      description:
-        "Unique IDs associated with the device, such as serial number or advertising ID.",
+      // description:
+      //   "Unique IDs associated with the device, such as serial number or advertising ID.",
       color: null,
     },
     {
       value: "OTHER",
       label: "Other",
-      description: "Other types of data not listed above.",
+      // description: "Other types of data not listed above.",
       color: null,
     },
   ],
@@ -558,12 +557,6 @@ export const dataPracticesData = {
 
   dataInference: [
     {
-      value: "NO_INFERENCE",
-      label: "No data inference",
-      description: "",
-      color: "#4CAF50", // Green
-    },
-    {
       value: "ATTITUDES_PREFERENCES",
       label: "Attitudes and preferences",
       description: "",
@@ -580,6 +573,12 @@ export const dataPracticesData = {
       label: "Behaviors",
       description: "",
       color: "#F44336", // Red
+    },
+    {
+      value: "NO_INFERENCE",
+      label: "No data inference",
+      description: "",
+      color: "#4CAF50", // Green
     },
     {
       value: "INFERENCE_NOT_DISCLOSED",

@@ -33,12 +33,14 @@ const initialState = {
     dataLinkage: [],
     compliance: [],
     dataInference: [],
+    contactPhone: "",
+    contactEmail: "",
   },
   moreInformation: {
     privacyPolicy: [],
     offlineFunctionality: "",
-    noDataFunctionality: [],
-    physicalActuations: [],
+    noDataFunctionality: "", // This was a radio button, should be a string
+    physicalActuations: "", // CHANGED from [] to ""
     compatiblePlatforms: "",
   },
 };

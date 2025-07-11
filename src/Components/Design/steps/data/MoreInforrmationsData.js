@@ -54,13 +54,7 @@ export const MoreInformationsData = {
         "Device will remain fully functional when data is not being processed.",
       color: "#4CAF50", // Green
     },
-    {
-      value: "NOT_APPLICABLE_NO_DATA",
-      label: "Not applicable",
-      description:
-        "This is not applicable as the device will not process any data.",
-      color: "#4CAF50", // Green
-    },
+
     {
       value: "LIMITED_FUNCTIONALITY_NO_DATA",
       label: "Limited functionality",
@@ -74,6 +68,12 @@ export const MoreInformationsData = {
       description:
         "Device will not remain functional when data is not being processed.",
       color: "#F44336", // Red
+    },
+    {
+      value: "NOT_APPLICABLE_NO_DATA",
+      label: "Not applicable",
+      description: "Device will not process any data",
+      color: "#4CAF50", // Green
     },
     {
       value: "FUNCTIONALITY_NOT_DISCLOSED_NO_DATA",
