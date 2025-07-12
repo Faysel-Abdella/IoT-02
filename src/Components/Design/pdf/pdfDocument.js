@@ -277,7 +277,7 @@ const dataPracticesItems = [
   },
   { type: "checkbox", title: "Sensor Type", dataKey: "sensorDataTypes" },
   {
-    type: "checkbox",
+    type: "radio", // <-- The only change needed
     title: "Data Collection Frequency",
     dataKey: "dataFrequency",
   },
@@ -315,17 +315,17 @@ const dataPracticesItems = [
     title: "Children's Data Handling",
     dataKey: "childrensDataHandling",
   },
-  { type: "checkbox", title: "Data Linkage", dataKey: "dataLinkage" },
+  { type: "radio", title: "Data Linkage", dataKey: "dataLinkage" },
   { type: "checkbox", title: "In Compliance With", dataKey: "compliance" }, // This remains a checkbox type
-  { type: "checkbox", title: "Data Inferences", dataKey: "dataInference" },
-];
-
-const moreInformationItems = [
+  { type: "radio", title: "Data Inferences", dataKey: "dataInference" },
   {
     type: "checkbox",
     title: "Privacy Policy",
     dataKey: "privacyPolicy",
   },
+];
+
+const moreInformationItems = [
   {
     type: "radio",
     title: "Functionality when offline",
@@ -487,7 +487,7 @@ const PdfDocument = ({ formData }) => (
         data={formData.dataPractices}
       />
       <MoreInformationSection data={formData.moreInformation} />
-      <ContactInfoSection data={formData.dataPractices} />
+      <ContactInfoSection data={formData.moreInformation} />
     </Page>
   </Document>
 );

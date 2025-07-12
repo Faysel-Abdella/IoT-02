@@ -1,21 +1,4 @@
 export const MoreInformationsData = {
-  privacyPolicy: [
-    {
-      value: "DETAILED_PRACTICES_PROVIDED",
-      label: "Detailed privacy and security practices",
-      description:
-        "A comprehensive privacy policy detailing data and security practices is provided.",
-      color: "#4CAF50", // Green
-    },
-    {
-      value: "POLICY_NOT_DISCLOSED",
-      label: "Not disclosed",
-      description:
-        "The manufacturer does not provide a privacy policy or disclose their practices.",
-      color: "#F44336", // Red
-    },
-  ],
-
   offlineFunctionality: [
     {
       value: "FULL_FUNCTIONALITY",

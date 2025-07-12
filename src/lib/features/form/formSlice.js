@@ -33,11 +33,11 @@ const initialState = {
     dataLinkage: [],
     compliance: [],
     dataInference: [],
-    contactPhone: "",
-    contactEmail: "",
+    privacyPolicy: [],
   },
   moreInformation: {
-    privacyPolicy: [],
+    contactPhone: "",
+    contactEmail: "",
     offlineFunctionality: "",
     noDataFunctionality: "", // This was a radio button, should be a string
     physicalActuations: "", // CHANGED from [] to ""
