@@ -30,17 +30,17 @@ const MoreInformation = ({ formData, updateFormData }) => {
   // This component manages its own checkbox changes
 
   const parentKey = "moreInformation";
-  const handleCheckboxChange = (field, value) => {
-    // We assume this component's data will be stored under the 'moreInformation' key in the main form state
-    const parentKey = "moreInformation";
+  // const handleCheckboxChange = (field, value) => {
+  //   // We assume this component's data will be stored under the 'moreInformation' key in the main form state
+  //   const parentKey = "moreInformation";
 
-    const currentValues = formData[field] || [];
-    const updatedValues = currentValues.includes(value)
-      ? currentValues.filter((item) => item !== value)
-      : [...currentValues, value];
+  //   const currentValues = formData[field] || [];
+  //   const updatedValues = currentValues.includes(value)
+  //     ? currentValues.filter((item) => item !== value)
+  //     : [...currentValues, value];
 
-    updateFormData(parentKey, field, updatedValues);
-  };
+  //   updateFormData(parentKey, field, updatedValues);
+  // };
 
   const handleRadioChange = (field, value) => {
     updateFormData(parentKey, field, value);
@@ -54,36 +54,42 @@ const MoreInformation = ({ formData, updateFormData }) => {
     <div className="step-content">
       <h2 className="step-title">More Information</h2>
 
-      {/* Privacy Policy Section */}
       <div className="form-section">
-        <h3 className="section-title">Privacy Policy</h3>
-        <div className="checkbox-list">
-          {MoreInformationsData.privacyPolicy.map((option) => {
-            const isChecked = (formData.privacyPolicy || []).includes(
-              option.value
-            );
-            return (
-              <div key={option.value} className="tooltip-container">
-                <label className="checkbox-label">
-                  <input
-                    type="checkbox"
-                    value={option.value}
-                    checked={isChecked}
-                    onChange={() =>
-                      handleCheckboxChange("privacyPolicy", option.value)
-                    }
-                  />
-                  <div className="label-content">
-                    <span className="checkbox-text">{option.label}</span>
-                    {/* <ColorCircle color={option.color} isChecked={isChecked} /> */}
-                  </div>
-                </label>
-                <span className="tooltip-text">{option.description}</span>
-              </div>
-            );
-          })}
-        </div>
+        <label htmlFor="contactPhone" className="form-label">
+          <span className="section-title">Call with your questions at </span>
+          <span className="label-hint">(Phone number)</span>
+        </label>
+        <input
+          id="contactPhone"
+          type="tel"
+          placeholder="Number to contact"
+          value={formData.contactPhone || ""}
+          onChange={(e) =>
+            updateFormData(parentKey, "contactPhone", e.target.value)
+          }
+          className="form-input"
+        />
       </div>
+
+      {/* --- NEW: Email Address Input --- */}
+      <div className="form-section">
+        <label htmlFor="contactEmail" className="form-label">
+          <span className="section-title">Email with your questions at </span>
+          <span className="label-hint">(Email address)</span>
+        </label>
+        <input
+          id="contactEmail"
+          type="email"
+          placeholder="Email to contact"
+          value={formData.contactEmail || ""}
+          onChange={(e) =>
+            updateFormData(parentKey, "contactEmail", e.target.value)
+          }
+          className="form-input"
+        />
+      </div>
+
+      {/* Privacy Policy Section */}
 
       <div className="form-section">
         <TooltipWrapper tooltipText="How the device is expected to function when no internet is available">

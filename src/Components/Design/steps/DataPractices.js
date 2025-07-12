@@ -173,39 +173,48 @@ const DataPractices = ({ formData, updateFormData }) => {
             Data Collection Frequency
           </h3>
         </TooltipWrapper>
-        {/* Use checkbox-list for styling consistency */}
-        <div className="checkbox-list">
-          {dataPracticesData.dataFrequency.map((option) => {
-            // Check if the value is in the formData array
-            const isChecked = (formData.dataFrequency || []).includes(
-              option.value
-            );
-            return (
-              <div key={option.value} className="tooltip-container">
-                <label className="checkbox-label">
-                  {" "}
-                  {/* Use checkbox-label class */}
+
+        {/* Use 'radio-list' for styling consistency with your example */}
+        <div className="radio-list">
+          {dataPracticesData.dataFrequency.map(
+            ({ value, label, description }) => {
+              // The check for "checked" changes to a simple string comparison
+              const isChecked = formData.dataFrequency === value;
+
+              return (
+                <div key={value} className="tooltip-container">
+                  {/* The hidden radio input */}
                   <input
-                    type="checkbox" // <-- CHANGE to checkbox
-                    value={option.value}
+                    type="radio"
+                    // A unique ID for this specific input
+                    id={`radio-frequency-${value}`}
+                    // This 'name' groups all the radios, allowing only one to be selected
+                    name="dataFrequency"
+                    value={value}
                     checked={isChecked}
-                    // Use the new handler
-                    onChange={() =>
-                      handleCheckboxChange("dataFrequency", option.value)
-                    }
+                    // You'll likely need a different handler, like handleRadioChange
+                    onChange={() => handleRadioChange("dataFrequency", value)}
+                    style={{ display: "none" }}
                   />
-                  <div className="label-content">
-                    <span className="checkbox-text">{option.label}</span>{" "}
-                    {/* Use checkbox-text class */}
-                    {/* <ColorCircle color={option.color} isChecked={isChecked} /> */}
-                  </div>
-                </label>
-                {option.description !== "" && (
-                  <span className="tooltip-text">{option.description}</span>
-                )}
-              </div>
-            );
-          })}
+
+                  {/* The clickable label, linked by 'htmlFor' to the input's 'id' */}
+                  <label
+                    htmlFor={`radio-frequency-${value}`}
+                    className="radio-label"
+                  >
+                    <div className="label-content">
+                      <span className="radio-text">{label}</span>
+                    </div>
+                  </label>
+
+                  {/* The tooltip logic remains the same */}
+                  {description !== "" && (
+                    <span className="tooltip-text">{description}</span>
+                  )}
+                </div>
+              );
+            }
+          )}
         </div>
       </div>
       {/* ======================================================= */}
@@ -671,35 +680,46 @@ const DataPractices = ({ formData, updateFormData }) => {
 
       <div className="form-section">
         <h3 className="section-title">Data linkage</h3>
-        <div className="checkbox-list">
-          {dataPracticesData.dataLinkage.map((option) => {
-            // We use a new state field 'dataLinkage'
-            const isChecked = (formData.dataLinkage || []).includes(
-              option.value
-            );
-            return (
-              <div key={option.value} className="tooltip-container">
-                <label className="checkbox-label">
+        {/* Use 'radio-list' for styling consistency */}
+        <div className="radio-list">
+          {dataPracticesData.dataLinkage.map(
+            ({ value, label, description }) => {
+              // Check for a single string value
+              const isChecked = formData.dataLinkage === value;
+
+              return (
+                <div key={value} className="tooltip-container">
+                  {/* The hidden radio input */}
                   <input
-                    type="checkbox"
-                    value={option.value}
+                    type="radio"
+                    id={`radio-linkage-${value}`}
+                    // The 'name' attribute groups these buttons together
+                    name="dataLinkage"
+                    value={value}
                     checked={isChecked}
-                    onChange={() =>
-                      handleCheckboxChange("dataLinkage", option.value)
-                    }
+                    // Use a handler that sets a single string value
+                    onChange={() => handleRadioChange("dataLinkage", value)}
+                    style={{ display: "none" }}
                   />
-                  <div className="label-content">
-                    <span className="checkbox-text">{option.label}</span>
-                    {/* <ColorCircle color={option.color} isChecked={isChecked} /> */}
-                  </div>
-                </label>
-                {/* This span will only render if a description exists */}
-                {option.description && (
-                  <span className="tooltip-text">{option.description}</span>
-                )}
-              </div>
-            );
-          })}
+
+                  {/* The clickable, styled label */}
+                  <label
+                    htmlFor={`radio-linkage-${value}`}
+                    className="radio-label"
+                  >
+                    <div className="label-content">
+                      <span className="radio-text">{label}</span>
+                    </div>
+                  </label>
+
+                  {/* Tooltip logic remains the same */}
+                  {description && (
+                    <span className="tooltip-text">{description}</span>
+                  )}
+                </div>
+              );
+            }
+          )}
         </div>
       </div>
 
@@ -769,10 +789,54 @@ const DataPractices = ({ formData, updateFormData }) => {
         <h3 className="section-title">
           What will be inferred from user's Data
         </h3>
+        {/* Use 'radio-list' for styling consistency */}
+        <div className="radio-list">
+          {dataPracticesData.dataInference.map(
+            ({ value, label, description }) => {
+              // Check for a single string value
+              const isChecked = formData.dataInference === value;
+
+              return (
+                <div key={value} className="tooltip-container">
+                  {/* The hidden radio input */}
+                  <input
+                    type="radio"
+                    id={`radio-inference-${value}`}
+                    // The 'name' attribute groups these buttons together
+                    name="dataInference"
+                    value={value}
+                    checked={isChecked}
+                    // Use a handler that sets a single string value
+                    onChange={() => handleRadioChange("dataInference", value)}
+                    style={{ display: "none" }}
+                  />
+
+                  {/* The clickable, styled label */}
+                  <label
+                    htmlFor={`radio-inference-${value}`}
+                    className="radio-label"
+                  >
+                    <div className="label-content">
+                      <span className="radio-text">{label}</span>
+                    </div>
+                  </label>
+
+                  {/* Tooltip logic remains the same */}
+                  {description !== "" && (
+                    <span className="tooltip-text">{description}</span>
+                  )}
+                </div>
+              );
+            }
+          )}
+        </div>
+      </div>
+
+      <div className="form-section">
+        <h3 className="section-title">Privacy Policy</h3>
         <div className="checkbox-list">
-          {dataPracticesData.dataInference.map((option) => {
-            // We use a new state field 'dataInference'
-            const isChecked = (formData.dataInference || []).includes(
+          {dataPracticesData.privacyPolicy.map((option) => {
+            const isChecked = (formData.privacyPolicy || []).includes(
               option.value
             );
             return (
@@ -782,9 +846,8 @@ const DataPractices = ({ formData, updateFormData }) => {
                     type="checkbox"
                     value={option.value}
                     checked={isChecked}
-                    // The generic checkbox handler works perfectly
                     onChange={() =>
-                      handleCheckboxChange("dataInference", option.value)
+                      handleCheckboxChange("privacyPolicy", option.value)
                     }
                   />
                   <div className="label-content">
@@ -792,48 +855,11 @@ const DataPractices = ({ formData, updateFormData }) => {
                     {/* <ColorCircle color={option.color} isChecked={isChecked} /> */}
                   </div>
                 </label>
-                {option.description !== "" && (
-                  <span className="tooltip-text">{option.description}</span>
-                )}
+                <span className="tooltip-text">{option.description}</span>
               </div>
             );
           })}
         </div>
-      </div>
-
-      <div className="form-section">
-        <label htmlFor="contactPhone" className="form-label">
-          <span className="section-title">Call with your questions at </span>
-          <span className="label-hint">(Phone number)</span>
-        </label>
-        <input
-          id="contactPhone"
-          type="tel"
-          placeholder="Number to contact"
-          value={formData.contactPhone || ""}
-          onChange={(e) =>
-            updateFormData(parentKey, "contactPhone", e.target.value)
-          }
-          className="form-input"
-        />
-      </div>
-
-      {/* --- NEW: Email Address Input --- */}
-      <div className="form-section">
-        <label htmlFor="contactEmail" className="form-label">
-          <span className="section-title">Email with your questions at </span>
-          <span className="label-hint">(Email address)</span>
-        </label>
-        <input
-          id="contactEmail"
-          type="email"
-          placeholder="Email to contact"
-          value={formData.contactEmail || ""}
-          onChange={(e) =>
-            updateFormData(parentKey, "contactEmail", e.target.value)
-          }
-          className="form-input"
-        />
       </div>
     </div>
   );
